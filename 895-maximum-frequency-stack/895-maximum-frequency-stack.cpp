@@ -1,8 +1,10 @@
 class FreqStack {
 public:
-    int maxCount = 0;
-    unordered_map<int,int> counter;
-    unordered_map<int, stack<int>>  mp;
+    int maxFreq = 0;
+    // freq stores frequency of each element present in data structure
+    unordered_map<int,int> freq;
+    // freqMap stores elements with each frequency in the order they were added
+    unordered_map<int,stack<int>> freqMap;
     
     FreqStack() {
         
@@ -10,24 +12,26 @@ public:
     
     void push(int val) {
         int prev_count = 0;
-        if(counter.count(val)){
-            prev_count = counter[val];
+        if(freq.count(val)){
+            prev_count = freq[val];
         }
-        maxCount = max(maxCount, prev_count + 1);
-        counter[val]++;
-        mp[prev_count+1].push(val);
+        maxFreq = max(maxFreq, prev_count + 1);
+        freqMap[prev_count+1].push(val);
+        freq[val]++;
     }
     
     int pop() {
-        int top = mp[maxCount].top();
-        mp[maxCount].pop();
-        if(mp[maxCount].empty()){
-            mp.erase(maxCount);
-            maxCount--;
+        int top = freqMap[maxFreq].top();
+        // remove top element. if top element was last with maxFreq, reduce maxFreq.
+        freqMap[maxFreq].pop();
+        if(freqMap[maxFreq].empty()){
+            freqMap.erase(maxFreq);
+            maxFreq--;
         }
-        counter[top]--;
-        if(counter[top]==0){
-            counter.erase(top);
+        // reduce frequency of top element. If frequency become 0, remove top.
+        freq[top]--;
+        if(freq[top]==0){
+            freq.erase(top);
         }
         return top;
     }
