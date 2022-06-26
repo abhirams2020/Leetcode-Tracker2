@@ -7,7 +7,8 @@ public:
     // so we can compare elements in both subarrays before sorting
     void merge(vector<int> &arr, int l, int mid, int r) {
         int n = r-l+1; // size of parition
-        int temp[n];
+        vector<int> temp(n);
+        // int temp[n];
         int ptr = 0;
         int left=l, right=mid+1;
         
