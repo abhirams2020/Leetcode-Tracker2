@@ -1,12 +1,12 @@
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        // set<vector<int>> res;
         vector<vector<int>> res;
         int n = nums.size();
         sort(nums.begin(), nums.end());
         for(int i=0;i<n;){
             long long target1 = (long long)target - nums[i];
+            
             for(int j=i+1;j<n;){
                 int left = j+1, right = n-1;
                 long long target2 = target1-nums[j]; // nums[l] + nums[r] = target - (nums[i] + nums[j])
