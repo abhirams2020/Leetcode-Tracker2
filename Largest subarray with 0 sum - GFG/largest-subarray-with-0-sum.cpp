@@ -16,7 +16,11 @@ class Solution{
         unordered_map<int,int> mp;
         int maxLen = 0;
         int pre = 0;
+        // mp[0] = -1 cz if sum from 0 to i is 0, then len = i-(-1) = i+1
         mp[0] = -1;
+        // for every i, check if prefix sum already found before
+        // if prefix sum was found, then prev_index+1 to curr_index has 0 sum
+        // if prefix sum not found, this is first occurrence.store index of prefix sum
         for(int i=0;i<A.size();i++){
             pre += A[i];
             if(mp.count(pre)){
