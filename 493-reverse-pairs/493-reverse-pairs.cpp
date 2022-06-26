@@ -7,7 +7,8 @@ public:
     // so we can compare elements in both subarrays before sorting
     void merge(vector<int> &arr, int l, int mid, int r) {
         int n = r-l+1; // size of parition
-        vector<int> temp;
+        int temp[n];
+        int ptr = 0;
         int left=l, right=mid+1;
         
         // l to mid and mid+1 to r is sorted in ascending order
@@ -22,21 +23,25 @@ public:
         
         while(left<=mid && right<=r){
             if(arr[left]<=arr[right]){
-                temp.push_back(arr[left]);
+                temp[ptr] = arr[left];
                 left++;
             }
             else {
-                temp.push_back(arr[right]);
+                temp[ptr] = arr[right];
                 right++;
             }
+            ptr++;
         }
+        
         while(left<=mid){
-            temp.push_back(arr[left]);
+            temp[ptr] = arr[left];
             left++;
+            ptr++;
         }
         while(right<=r){
-            temp.push_back(arr[right]);
+            temp[ptr] = arr[right];
             right++;
+            ptr++;
         }
         for(int i=0;i<n;i++){
             arr[l+i] = temp[i];
