@@ -2,11 +2,14 @@ class Solution {
 public:
     
     int count = 0;
-
+    
+    // In merge function, left subarray will have index lower than right subarray
+    // so we can compare elements in both subarrays before sorting
     void merge(vector<int> &arr, int l, int mid, int r) {
         int n = r-l+1; // size of parition
         vector<int> temp;
         int left=l, right=mid+1;
+        
         // l to mid and mid+1 to r is sorted in ascending order
         // so if any i in left is greater than j in right, means mid+1 to j forms pair with i
         int j = mid+1;
