@@ -31,13 +31,13 @@ public:
                     }
                 }
                 int curr_j = j;
-                // Processing the duplicates of number 2
+                // Processing the duplicates of number 2 (MOVE TO NEXT NON DUPLICATE)
                 while(j<n && nums[j] == nums[curr_j]){
                     j++;
                 }
             }
             int curr_i = i;
-            // Processing the duplicates of number 1
+            // Processing the duplicates of number 1 (MOVE TO NEXT NON DUPLICATE)
             while(i<n && nums[i] == nums[curr_i]){
                 i++;
             }
