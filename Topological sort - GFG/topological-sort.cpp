@@ -9,17 +9,14 @@ class Solution
 	// Topological Sort using Kahn's Algorithm using BFS
 	vector<int> topoSortBFS(int V, vector<int> adj[]) 
 	{
-	    // code here
 	    vector<int> indegree(V,0);
         vector<int> topo;
-        
 	    // assign indegree for each node
 	    for(int i=0;i<V;i++){
 	        for(auto k:adj[i]){
 	            indegree[k]++;
 	        }
 	    }
-        
         // put all 0 indegree to queue. these are valid starting points
         queue<int> q;
         for(int i=0;i<V;i++){
@@ -27,7 +24,6 @@ class Solution
                 q.push(i);
             }
         }
-        
         while(!q.empty()){
             int curr = q.front();
             q.pop();
@@ -39,9 +35,10 @@ class Solution
                 }
             }
         }
-        
 	    return topo;
 	}
+	
+	// Topological Sort using DFS
 	
 	vector<int> visited;
 	vector<int> topo;
@@ -60,7 +57,7 @@ class Solution
 	    visited[curr] = 2;
 	    topo.push_back(curr);
 	}
-	// Topological Sort using DFS
+	
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	    visited.resize(V,0);
