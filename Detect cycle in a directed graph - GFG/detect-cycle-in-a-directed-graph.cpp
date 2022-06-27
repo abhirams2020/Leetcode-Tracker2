@@ -6,35 +6,35 @@ using namespace std;
 class Solution {
   public:
     // // CYCLE DETECTION USING DFS ON GRAPH
-    // vector<int> visited;
+    vector<int> visited;
     
-    // bool dfs(vector<int> adj[], int node){
-    //     visited[node] = 1;
-    //     for(auto i:adj[node]){
-    //         if(visited[i] == 0){
-    //             if(dfs(adj,i)){
-    //                 return true;
-    //             }
-    //         }
-    //         else if(visited[i]==1){
-    //             return true;
-    //         }
-    //     }
-    //     visited[node] = 2;
-    //     return false;
-    // }
+    bool dfs(vector<int> adj[], int node){
+        visited[node] = 1;
+        for(auto i:adj[node]){
+            if(visited[i] == 0){
+                if(dfs(adj,i)){
+                    return true;
+                }
+            }
+            else if(visited[i]==1){
+                return true;
+            }
+        }
+        visited[node] = 2;
+        return false;
+    }
     
-    // bool isCyclicDFS(int V, vector<int> adj[]) {
-    //     visited.resize(V,0);
-    //     for(int i=0;i<V;i++){
-    //         if(visited[i]==0){
-    //             if(dfs(adj,i)){
-    //                 return true;
-    //             }
-    //         }
-    //     }
-    //     return false;
-    // }
+    bool isCyclicDFS(int V, vector<int> adj[]) {
+        visited.resize(V,0);
+        for(int i=0;i<V;i++){
+            if(visited[i]==0){
+                if(dfs(adj,i)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     
     // CYCLE DETECTION USING BFS ON GRAPH
     
