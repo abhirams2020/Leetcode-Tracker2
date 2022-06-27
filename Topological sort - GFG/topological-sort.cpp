@@ -6,21 +6,21 @@ using namespace std;
 class Solution
 {
 	public:
-	//Function to return list containing vertices in Topological order. 
-	vector<int> topoSort(int V, vector<int> adj[]) 
+	// Topological Sort using Kahn's Algorithm using BFS
+	vector<int> topoSortBFS(int V, vector<int> adj[]) 
 	{
 	    // code here
 	    vector<int> indegree(V,0);
+        vector<int> topo;
+        
+	    // assign indegree for each node
 	    for(int i=0;i<V;i++){
 	        for(auto k:adj[i]){
 	            indegree[k]++;
 	        }
 	    }
-        // for(auto i:indegree){
-        //     cout<<i<<" ";
-        // }
-        // cout<<endl;
-        vector<int> topo;
+        
+        // put all 0 indegree to queue. these are valid starting points
         queue<int> q;
         for(int i=0;i<V;i++){
             if(indegree[i]==0){
@@ -39,10 +39,37 @@ class Solution
                 }
             }
         }
-        // for(auto i:topo){
-        //     cout<<i<<" ";
-        // }
-        // cout<<endl;
+        
+	    return topo;
+	}
+	
+	vector<int> visited;
+	vector<int> topo;
+	bool isCycle = false;
+	
+	void dfs(int curr, vector<int> adj[]){
+	    if(visited[curr]==1){
+	        isCycle=true;
+	    }
+	    visited[curr] = 1;
+	    for(auto i:adj[curr]){
+	        if(visited[i]==0){
+	            dfs(i,adj);
+	        }
+	    }
+	    visited[curr] = 2;
+	    topo.push_back(curr);
+	}
+	// Topological Sort using DFS
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	    visited.resize(V,0);
+	    for(int i=0;i<V;i++){
+	        if(visited[i]==0){
+	            dfs(i,adj);
+	        }
+	    }
+	    reverse(topo.begin(),topo.end());
 	    return topo;
 	}
 };
