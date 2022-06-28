@@ -41,7 +41,6 @@ class Solution {
     bool isCyclic(int V, vector<int> adj[]) {
         int count = 0;
         vector<int> indegree(V,0);
-        vector<int> topo;
         
         for(int i=0;i<V;i++){
             for(auto node:adj[i]){
