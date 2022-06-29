@@ -22,12 +22,37 @@ class Solution {
         }
         return false;
     }
+    
+    bool bfs(int node, vector<int> adj[]){
+        visited[node] = true;
+        queue<pair<int,int>> q;
+        q.push({node,-1});
+        
+        while(!q.empty()){
+            int curr = q.front().first;
+            int parent = q.front().second;
+            q.pop();
+            for(auto child:adj[curr]){
+                if(visited[child]==false){
+                    visited[child] = true;
+                    q.push({child,curr});
+                }
+                else if(child!=parent){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     // Function to detect cycle in an undirected graph.
     bool isCycle(int V, vector<int> adj[]) {
         visited.resize(V,false);
         for(int i=0;i<V;i++){
             if(visited[i]==false){
-                if(dfs(i,adj,-1)){
+                // if(dfs(i,adj,-1)){
+                //     return true;
+                // }
+                if(bfs(i,adj)){
                     return true;
                 }
             }
