@@ -12,10 +12,9 @@ class Solution
 	
 	// dijkstra is like bfs with priority queue with {dist,node} values
 	void dijkstra(vector<vector<int>> adj[], int node){
-	    dist[node] = 0;
 	    priority_queue<pii, vector<pii>, greater<pii>> pq;
 	    pq.push({0,node});
-	    int parent = -1;
+	    dist[node] = 0;
 	    while(!pq.empty()){
             int curr = pq.top().second;
             pq.pop();
