@@ -25,6 +25,7 @@ class Solution {
     
     bool bfs(int node, vector<int> adj[]){
         visited[node] = true;
+        // queue to store a node and its parent node
         queue<pair<int,int>> q;
         q.push({node,-1});
         
@@ -33,10 +34,12 @@ class Solution {
             int parent = q.front().second;
             q.pop();
             for(auto child:adj[curr]){
+                // if we havent visited a child, do bfs on that child and mark visited
                 if(visited[child]==false){
                     visited[child] = true;
                     q.push({child,curr});
                 }
+                // if visited the child, check if parent of curr. if its not parent, cycle exist
                 else if(child!=parent){
                     return true;
                 }
