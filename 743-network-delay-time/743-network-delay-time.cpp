@@ -8,13 +8,15 @@ public:
     vector<vector<pii>> dmap;
     vector<bool> visited;
     
-    int dijkstra(int size, int k){
+    // we need to reach all nodes with min distance. so use dijkstra algo
+    // dijkstra is like bfs with priority queue with {dist,node} values
+    int dijkstra(int size, int source){
         int time = 0;
-        vector<int> dist(size+1,1e9);
+        vector<int> dist(size+1,INT_MAX);
         // priority queue elements are {distance from start, node}
         priority_queue<pii,vector<pii>,greater<pii>> pq;
-        pq.push({0,k});
-        dist[k] = 0;
+        pq.push({0,source});
+        dist[source] = 0;
         while(!pq.empty()){
             int curr = pq.top().second;
             visited[curr] = true;
