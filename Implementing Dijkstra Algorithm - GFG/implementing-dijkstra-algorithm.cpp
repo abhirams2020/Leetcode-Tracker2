@@ -11,19 +11,19 @@ class Solution
 	vector<int> dist;
 	
 	// dijkstra is like bfs with priority queue with {dist,node} values
-	void dijkstra(vector<vector<int>> adj[], int node){
+	void _dijkstra(vector<vector<int>> adj[], int node){
 	    priority_queue<pii, vector<pii>, greater<pii>> pq;
 	    pq.push({0,node});
 	    dist[node] = 0;
 	    while(!pq.empty()){
             int curr = pq.top().second;
             pq.pop();
-            for(auto child:adj[curr]){
-                int child_node = child[0];
-                int child_dist = child[1];
-                if(dist[curr] + child_dist < dist[child_node]){
-                    dist[child_node] = dist[curr] + child_dist;
-                    pq.push({dist[child_node], child_node});
+            for(auto it:adj[curr]){
+                int child = it[0];
+                int wt = it[1];
+                if(dist[curr] + wt < dist[child]){
+                    dist[child] = dist[curr] + wt;
+                    pq.push({dist[child], child});
                 }
             }
 	    }
@@ -34,7 +34,7 @@ class Solution
     {
         // adj[node] = {{neighbour,distance}, {neighbour,distance}}
         dist.resize(V,INT_MAX);
-        dijkstra(adj,S);
+        _dijkstra(adj,S);
         return dist;
     }
 };
