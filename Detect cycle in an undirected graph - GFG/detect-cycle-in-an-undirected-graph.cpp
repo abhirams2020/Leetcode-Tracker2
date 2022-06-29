@@ -9,14 +9,15 @@ class Solution {
     
     bool dfs(int curr, vector<int> adj[], int parent){
         visited[curr] = true;
-        for(auto node:adj[curr]){
-            if(node!=parent){
-                if(visited[node]){
+        for(auto child:adj[curr]){
+            // if we havent visited a child yet, do dfs on that child and check cycle
+            if(visited[child]==false) {
+                if(dfs(child,adj,curr))
                     return true;
-                }
-                else if(dfs(node,adj,curr)){
-                    return true;
-                }
+            }
+            // if visited the child, check if parent of curr. if its not parent, cycle exist
+            else if(child!=parent) {
+                return true;
             }
         }
         return false;
