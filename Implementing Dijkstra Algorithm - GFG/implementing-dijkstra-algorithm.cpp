@@ -8,13 +8,15 @@ class Solution
 	public:
 	using pii = pair<int,int>;
 	
-	vector<int> dist;
-	
-	// dijkstra is like bfs with priority queue with {dist,node} values
-	void _dijkstra(vector<vector<int>> adj[], int node){
+	// Function to find the shortest distance of all the vertices from the source vertex S.
+    // Dijkstra is like bfs with priority queue with {dist,node} values
+    vector <int> dijkstra(int V, vector<vector<int>> adj[], int source)
+    {
+        // adj[node] = {{neighbour,distance}, {neighbour,distance}}
+        vector<int> dist(V,INT_MAX);
 	    priority_queue<pii, vector<pii>, greater<pii>> pq;
-	    pq.push({0,node});
-	    dist[node] = 0;
+	    pq.push({0,source});
+	    dist[source] = 0;
 	    while(!pq.empty()){
             int curr = pq.top().second;
             pq.pop();
@@ -26,15 +28,7 @@ class Solution
                     pq.push({dist[child], child});
                 }
             }
-	    }
-	}
-	//Function to find the shortest distance of all the vertices
-    //from the source vertex S.
-    vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
-    {
-        // adj[node] = {{neighbour,distance}, {neighbour,distance}}
-        dist.resize(V,INT_MAX);
-        _dijkstra(adj,S);
+	    }        
         return dist;
     }
 };
