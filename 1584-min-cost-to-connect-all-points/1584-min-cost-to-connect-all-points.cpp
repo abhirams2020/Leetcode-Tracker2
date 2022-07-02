@@ -43,7 +43,7 @@ public:
     int minCostConnectPoints(vector<vector<int>>& points) {
         adj.resize(points.size(), vector<int> (points.size(), INT_MAX));
         
-        // create adjacency list with weight
+        // create adjacency matrix with weight
         for(int i=0;i<points.size();i++){
             for(int j=i+1;j<points.size();j++){
                 int dist = findDist(points, i, j);
