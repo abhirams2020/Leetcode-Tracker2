@@ -112,15 +112,16 @@ class Solution{
         if(dp[select].count(root)){
             return dp[select][root];
         }
-        int ans;
+        int include=0, not_include=0;
+        
+        not_include =  maxSum(root->left,true) + maxSum(root->right,true);
+        
+        include = root->data + maxSum(root->left,false) + maxSum(root->right,false);
+        
         if(select==false){
-            ans =  maxSum(root->left,true) + maxSum(root->right,true);
+            return dp[select][root] = not_include;
         }
-        if(select==true){
-            ans =  max( maxSum(root->left,true) + maxSum(root->right,true) ,
-                            root->data + maxSum(root->left,false) + maxSum(root->right,false) );
-        }
-        return dp[select][root] = ans;
+        return dp[select][root] = max(include, not_include);
     }
     
     //Function to return the maximum sum of non-adjacent nodes.
