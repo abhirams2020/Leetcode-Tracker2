@@ -13,6 +13,7 @@ class Solution
 {
     public:
     
+    // Find parent of node and store it in par
     int findParent(int node, int par[]) {
         if(node==par[node]){
             return node;
