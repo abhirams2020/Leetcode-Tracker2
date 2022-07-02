@@ -105,7 +105,7 @@ class Solution{
   public:
     vector<unordered_map<Node*, int>> dp;
     
-    int maxSum(Node* root, int select){
+    int maxSum(Node* root, bool select){
         if(!root){
             return 0;
         }
@@ -113,12 +113,12 @@ class Solution{
             return dp[select][root];
         }
         int ans;
-        if(select==0){
-            ans =  maxSum(root->left,1) + maxSum(root->right,1);
+        if(select==false){
+            ans =  maxSum(root->left,true) + maxSum(root->right,true);
         }
-        if(select==1){
-            ans =  max( maxSum(root->left,1) + maxSum(root->right,1) ,
-                            root->data + maxSum(root->left,0) + maxSum(root->right,0) );
+        if(select==true){
+            ans =  max( maxSum(root->left,true) + maxSum(root->right,true) ,
+                            root->data + maxSum(root->left,false) + maxSum(root->right,false) );
         }
         return dp[select][root] = ans;
     }
@@ -127,7 +127,7 @@ class Solution{
     int getMaxSum(Node *root) 
     {
         dp.resize(2);
-        return maxSum(root,1);
+        return maxSum(root,true);
     }
 };
 
