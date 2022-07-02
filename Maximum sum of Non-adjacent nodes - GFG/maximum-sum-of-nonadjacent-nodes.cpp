@@ -105,6 +105,11 @@ class Solution{
   public:
     vector<unordered_map<Node*, int>> dp;
     
+    // At a node there is 2 options,    select curr and skip the child nodes
+    //                                  dont select curr and move to child nodes
+    // select denotes if we can include the current node in the sum
+    // if no, find sum of fn where child nodes can be considered in maxsum
+    // if yes, find max of both situations when curr is included and not included
     int maxSum(Node* root, bool select){
         if(!root){
             return 0;
@@ -112,11 +117,10 @@ class Solution{
         if(dp[select].count(root)){
             return dp[select][root];
         }
-        int include=0, not_include=0;
         
-        not_include =  maxSum(root->left,true) + maxSum(root->right,true);
+        int not_include =  maxSum(root->left,true) + maxSum(root->right,true);
         
-        include = root->data + maxSum(root->left,false) + maxSum(root->right,false);
+        int include = root->data + maxSum(root->left,false) + maxSum(root->right,false);
         
         if(select==false){
             return dp[select][root] = not_include;
