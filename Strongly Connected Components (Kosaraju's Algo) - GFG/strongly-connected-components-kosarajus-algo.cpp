@@ -23,11 +23,11 @@ class Solution
 	}
 	
 	// dfs function on reverse graph (transpose)
-	void dfs2(vector<int> adj[], int curr){
+	void dfs2(vector<int> rev[], int curr){
 	    rev_visited[curr] = true;
-	    for(auto child:adj[curr]){
+	    for(auto child:rev[curr]){
 	        if(rev_visited[child]==false){
-	            dfs2(adj, child);
+	            dfs2(rev, child);
 	        }
 	    }
 	}
