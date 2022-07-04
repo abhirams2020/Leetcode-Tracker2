@@ -1,6 +1,6 @@
 class Solution {
 public:
-//     // Using seperate matrix to return answer
+//     // Using seperate matrix to return answer - O(m*n) space
 //     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
 //         int m = mat.size();
 //         int n = mat[0].size();
@@ -50,7 +50,7 @@ public:
 //     }
     
     
-    // Using same matrix to return answer
+    // Using same matrix to return answer - O(1) space
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
         int m = mat.size();
         int n = mat[0].size();
