@@ -61,11 +61,11 @@ class Solution
         // every dfs will complete a strongly connected component. so increment count
         while(!st.empty()){
             int curr = st.top();
+            st.pop();
             if(rev_visited[curr]==false){
                 dfs2(rev,curr);
                 count++;
             }
-            st.pop();
         }
         
         return count;
