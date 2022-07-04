@@ -52,8 +52,7 @@ public:
     
     // Using same matrix to return answer - O(1) space
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
-        int m = mat.size();
-        int n = mat[0].size();
+        int m = mat.size(), n = mat[0].size();
         
         queue<pair<int,int>> q;
         
@@ -61,12 +60,10 @@ public:
         // in original matrix, mark all non zero cells as not visited and add 0 cells to queue
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                if(mat[i][j]==0){
+                if(mat[i][j]==0)
                     q.push({i,j});
-                }
-                else {
+                else
                     mat[i][j] = -1;
-                }
             }
         }
         
@@ -78,12 +75,10 @@ public:
             int qSize = q.size();
             // add cells of next level to queue. for each level distance = dist. after a level increment dist.
             for(int i=0;i<qSize;i++){
-                int x = q.front().first;
-                int y = q.front().second;
+                int x = q.front().first, y = q.front().second;
                 q.pop();
                 for(auto it:dir){
-                    int new_x = x + it[0];
-                    int new_y = y + it[1];
+                    int new_x = x + it[0], new_y = y + it[1];
                     if(new_x>=0 && new_y>=0 && new_x<m && new_y<n && mat[new_x][new_y]==-1){
                         q.push({new_x, new_y});
                         mat[new_x][new_y] = dist;
