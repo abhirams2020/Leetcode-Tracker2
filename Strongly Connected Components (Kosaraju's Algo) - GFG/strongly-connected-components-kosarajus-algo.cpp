@@ -48,7 +48,7 @@ class Solution
             }
         }
         
-        // reverse the graph
+        // reverse the graph (transpose graph)
         vector<int> rev[V];
         
         for(int i=0;i<V;i++){
