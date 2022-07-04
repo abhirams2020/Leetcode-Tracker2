@@ -23,6 +23,7 @@ class Solution{
         for(int i=0;i<V-1;i++){
             for(auto it:adj){
                 int u = it[0], v = it[1], wt = it[2];
+                // consider a start node only if its reachable by src, ie dist[u]!=INF
                 if(dist[u]!=INF && dist[v] > dist[u] + wt){
                     dist[v] = dist[u] + wt;
                 }
