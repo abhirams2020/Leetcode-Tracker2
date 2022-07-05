@@ -30,12 +30,15 @@ public:
     
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
         int n = edges.size();
+        // initialise rank of all nodes to 0 and parent of all node to itself
         parent.resize(n+1);
         rank.resize(n+1,0);
         for(int i=1;i<=n;i++){
             parent[i] = i;
         }
         vector<int> ans;
+        
+        // keep doing union(u,v) till we reach cycle. ie parent[u] = parent[v]. {u,v} can be removed to not get cycle.
         for(auto it:edges){
             int u = it[0], v = it[1];
             if(findParent(u) == findParent(v)){
@@ -43,6 +46,7 @@ public:
             }
             _union(u,v);
         }
+        
         return ans;
     }
 };
