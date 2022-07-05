@@ -1,4 +1,4 @@
-// // BELLMAN FORD ALGO
+// // BELLMAN FORD ALGO (MEDIUM)
 // class Solution2 {
 // public:
 //     void copyVec(int n, vector<int> &arr1, vector<int> &arr2){
@@ -37,7 +37,7 @@
 //     }
 // };
 
-// DIJKSTRA ALGO
+// DIJKSTRA ALGO (HARD)
 class Solution {
 public:
     
@@ -48,33 +48,38 @@ public:
             int u=it[0], v=it[1], wt=it[2];
             graph[u].push_back({v,wt});
         }
-        
+        // dist[] stores minimum distance required to reach node from src.
         vector<int> dist(n,INT_MAX);
+        // stops[] stores minimum no of stops required to reach node from src.
         vector<int> stops(n,INT_MAX);
+        // pq => {dist of node from src, node, no of stops b/w src and node}
         priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> pq;
-        // {dist of node from src, node, no of stops b/w src and node}
         pq.push({0,src,0});
         
         while(!pq.empty()){
-            int currCost = pq.top()[0];
-            int currNode = pq.top()[1];
-            int currStops = pq.top()[2];
+            auto it = pq.top();
+            int currCost = it[0], currNode = it[1], currStops = it[2];
             pq.pop();
             
+            // update the dist[] with minimum distance to reach the node
+            // first time visiting a node will be the minimum distance from src to node
+            if(dist[currNode]==INT_MAX){
+                dist[currNode] = currCost;
+            }
+            
+            // if destination is reached, no more bfs is required
+            if(currNode==dst){
+                break;
+            }
+            
+            // we should also consider paths with lesser stops than current no of stops 
+            // in case the earlier result runs out of stops before reaching destination
+            // so consider path with minimum distance and also path with minimum no of stops
             if(stops[currNode] < currStops){
                 continue;
             }
             
             stops[currNode] = currStops;
-            
-            if(dist[currNode]==INT_MAX){
-                dist[currNode] = currCost;
-            }
-            
-            // first instance of visiting a node will give min distance reqd
-            if(currNode==dst){
-                break;
-            }
             
             // since we push currStops+1 in pq while traversing children, currStops+1<=k
             if(currStops>k){
