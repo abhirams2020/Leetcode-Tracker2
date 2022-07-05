@@ -112,10 +112,11 @@ public:
             int u=it[0], v=it[1], wt=it[2];
             graph[u].push_back({v,wt});
         }
-        // dist[] stores minimum distance required to reach node from src.
-        vector<int> dist(n,INT_MAX);
-        // stops[] stores minimum no of stops required to reach node from src.
-        vector<int> stops(n,INT_MAX);
+        
+        // minCost[n][k] gives minimum cost for reaching a node n in k steps
+        // we need to consider steps since if one edge is having very long distance but less stops, 
+        // path with more number of steps is taken. if same node and same steps but different path, minimum is taken
+        vector<vector<int>> minCost(n+1, vector<int> (k+2, INT_MAX));
         
         // no of stops between src and dst = k. so total no of stops from src = k+1.
         // so priority queue can have values from 0 to k+1.
@@ -125,7 +126,7 @@ public:
         priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> pq;
 
         pq.push({0,src,0});
-        vector<vector<int>> minCost(n+1, vector<int> (k+2, INT_MAX));
+        
         
         while(!pq.empty()){
             auto it = pq.top();
@@ -136,7 +137,7 @@ public:
                 return currCost;
             }
             
-            // ignore if we found a node with better cost before
+            // ignore if we found a node with better cost path before
             if(currCost > minCost[currNode][currStops]){
                 continue;
             }
@@ -148,6 +149,7 @@ public:
                 int childStops = currStops + 1;
                 // stops in pq can be maximum value of maxStops
                 if(childStops <= maxStops){
+                    // if this path is better than previous ones, add it to pq
                     if(minCost[child][childStops] > childCost){
                         minCost[child][childStops] = childCost;
                         pq.push({childCost, child, childStops});
