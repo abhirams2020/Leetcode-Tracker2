@@ -125,27 +125,20 @@ public:
         priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> pq;
 
         pq.push({0,src,0});
-        dist[src] = 0;
-        stops[src] = 0;
+        vector<vector<int>> minCost(n+1, vector<int> (k+2, INT_MAX));
         
         while(!pq.empty()){
             auto it = pq.top();
             int currCost = it[0], currNode = it[1], currStops = it[2];
             pq.pop();
-
-            if(dist[currNode] == INT_MAX){
-                dist[currNode] = currCost;    
-            }
-            
-            if(stops[currNode] < currStops){
-                continue;
-            }
-            else {
-                stops[currNode] = currStops;
-            }
             
             if(currNode == dst){
-                break;
+                return currCost;
+            }
+            
+            // ignore if we found a node with better cost before
+            if(currCost > minCost[currNode][currStops]){
+                continue;
             }
             
             // add child nodes to priority queue
@@ -155,21 +148,14 @@ public:
                 int childStops = currStops + 1;
                 // stops in pq can be maximum value of maxStops
                 if(childStops <= maxStops){
-                    if(dist[child] > childCost){
-                        // dist[child] = childCost;
-                        pq.push({childCost, child, childStops});
-                    }
-                    else if(stops[child] > childStops){
-                        // stops[child] = childStops;
+                    if(minCost[child][childStops] > childCost){
+                        minCost[child][childStops] = childCost;
                         pq.push({childCost, child, childStops});
                     }
                 }
             }
         }
         
-        if(dist[dst]!=INT_MAX){
-            return dist[dst];
-        }
         return -1;
     }
 };
