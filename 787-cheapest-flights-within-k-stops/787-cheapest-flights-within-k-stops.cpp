@@ -6,6 +6,8 @@ public:
         }    
     }
     
+    // USING BELLMAN FORD ALGORITHM. INSTEAD OF DIRECTLY CHANGING DIST[], COPY THE NEW VALUES IN TEMP[]
+    // COPYING TO TEMP WILL ENSURE THAT WE DONT USE NEW DIST VALUE FOR CURR LOOP AND MAINTAIN K STOPPING POINTS
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
         // flights = {{u1,v1,wt1}, {u2,v2,wt2}..}
         vector<int> dist(n,INT_MAX);
