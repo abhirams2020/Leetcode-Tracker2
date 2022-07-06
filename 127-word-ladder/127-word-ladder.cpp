@@ -6,7 +6,7 @@ public:
     // map a node to its neighbours
     // for hot its neighbours can be in keys #ot, h#t, ho#
     // so while adding words from word list to adjacency list, make each character of the word unknown and add to map
-    void createMapping(int n, vector<string> &wordList){
+    void createGraph(int n, vector<string> &wordList){
         for(auto str:wordList){
             string temp = str;
             for(int i=0;i<n;i++){
@@ -31,16 +31,15 @@ public:
         if(checkEndWord(endWord, wordList) == false){
             return false;
         }
-        string curr = beginWord;
         int n = endWord.length();
         
-        createMapping(n, wordList);
+        createGraph(n, wordList);
         
         queue <psi> q;
-        q.push({curr,1});
+        q.push({beginWord,1});
         
         unordered_set<string> visited;
-        visited.insert(curr);
+        visited.insert(beginWord);
         
         while(!q.empty()){
             string currWord = q.front().first;
@@ -53,6 +52,9 @@ public:
             
             string temp = currWord;
             
+            // to add children of currWord to queue, 1 character of currWord should be made unknown
+            // mp[temp] will give words with similar format. add all such nodes to queue except currWord
+            // add word to visited array after it is visited to avoid cycle
             for(int i=0;i<n;i++){
                 temp[i] = '#';
                 for(auto str:adj[temp]){
