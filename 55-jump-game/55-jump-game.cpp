@@ -31,13 +31,14 @@ class Solution {
 public:
     bool canJump(vector<int>& nums) {
         // from end check if we are able to reach 1st position
+        // for curr index, if we are able to reach the goal index, move goal to current
         int goal = nums.size()-1;
         for(int i=nums.size()-1;i>=0;i--){
             if(i+nums[i] >= goal){
                 goal = i;
             }
         }
-        
+        // if the goal index reaches 0, it means we are able to reach end index from start index
         return goal==0;
     }
 };
