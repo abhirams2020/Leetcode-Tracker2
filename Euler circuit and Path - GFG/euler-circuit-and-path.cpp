@@ -46,9 +46,9 @@ public:
     }
     
 	int isEularCircuit(int V, vector<int> adj[]){
-	   // if(isConnected(V,adj)==false){
-	   //     return 0;
-	   // }
+	    if(isConnected(V,adj)==false){
+	        return 0;
+	    }
 	    int count = countOdd(V,adj);
 	    if(count == 0){
 	        return 2;
