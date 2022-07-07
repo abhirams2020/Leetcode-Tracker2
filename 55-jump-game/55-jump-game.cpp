@@ -1,5 +1,7 @@
+// USING DYNAMIC PROGRAMMING
 class Solution {
 public:
+    // dp[idx] tells if it is possible to reach end index from idx
     int dp[10001];
     
     bool solve(vector<int> &nums, int index){
