@@ -87,9 +87,9 @@ class Solution{
         }
         
         // if there is cycle in graph or the given ordering is not correct, return empty string
-        // if(isCycle==true || invalidOrder==true){
-        //     return "";
-        // }
+        if(isCycle==true || invalidOrder==true){
+            return "";
+        }
         
         reverse(topo.begin(), topo.end());
         // cout<<topo<<"\n";
