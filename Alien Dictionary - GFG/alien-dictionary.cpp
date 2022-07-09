@@ -13,6 +13,9 @@ class Solution{
     // if a < b, then adj[a] = {b}
     unordered_map<char, vector<char>> adj;
     
+    // visited[i]   = 0 -> not visited
+    //              = 1 -> visited in current traversals
+    //              = 2 -> visited in previous traversals
     vector<int> visited;
     
     string topo;
@@ -21,23 +24,20 @@ class Solution{
     
     bool invalidOrder = false;
     
-    bool dfs(char curr){
+    void dfs(char curr){
         // current node is added to visited list
         visited[curr] = 1;
         for(auto i:adj[curr]){
             if(visited[i]==0){
-                if(dfs(i)){
-                    return isCycle = true;
-                }
+                dfs(i);
             }
             else if(visited[i]==1){
-                return isCycle = true;
+                isCycle = true;
             }
         }
         // since no cycles found for curr, visited[curr] = 2
         visited[curr] = 2;
         topo.push_back(curr);
-        return false;
     }
     
     void compareStrings(string &a, string &b){
@@ -80,9 +80,7 @@ class Solution{
         for(auto it:adj){
             char ch = it.first;
             if(visited[ch]==0){
-                if(dfs(ch)){
-                    isCycle = true;
-                }
+                dfs(ch);
             }
         }
         
