@@ -13,18 +13,31 @@ class Solution{
     // if a < b, then adj[a] = {b}
     unordered_map<char, vector<char>> adj;
     
-    unordered_set<char> visited;
+    vector<int> visited;
     
     string topo;
     
-    void dfs(char curr){
-        visited.insert(curr);
-        for(auto it:adj[curr]){
-            if(visited.count(it)==0){
-                dfs(it);
+    bool isCycle = false;
+    
+    bool invalidOrder = false;
+    
+    bool dfs(char curr){
+        // current node is added to visited list
+        visited[curr] = 1;
+        for(auto i:adj[curr]){
+            if(visited[i]==0){
+                if(dfs(i)){
+                    return isCycle = true;
+                }
+            }
+            else if(visited[i]==1){
+                return isCycle = true;
             }
         }
+        // since no cycles found for curr, visited[curr] = 2
+        visited[curr] = 2;
         topo.push_back(curr);
+        return false;
     }
     
     void compareStrings(string &a, string &b){
@@ -40,6 +53,13 @@ class Solution{
                 break;
             }
         }
+        
+        // if one string is prefix of another, check if smaller length one is first
+        if(p==min(a.length(),b.length())){
+            if(a.length() > b.length()){
+                invalidOrder = true;
+            }
+        }
     }
     
     string findOrder(string dict[], int N, int K) {
@@ -53,16 +73,26 @@ class Solution{
             compareStrings(dict[i-1], dict[i]);
         }
         
+        // initialise all nodes as unvisited
+        visited.resize(128,0);
+        
         // perform topological sort using DFS. add a character only after all its children are added
         for(auto it:adj){
-            char k = it.first;
-            if(visited.count(k)==0){
-                dfs(k);
+            char ch = it.first;
+            if(visited[ch]==0){
+                if(dfs(ch)){
+                    isCycle = true;
+                }
             }
         }
         
-        reverse(topo.begin(), topo.end());
+        // if there is cycle in graph or the given ordering is not correct, return empty string
+        // if(isCycle==true || invalidOrder==true){
+        //     return "";
+        // }
         
+        reverse(topo.begin(), topo.end());
+        // cout<<topo<<"\n";
         return topo;
     }
 };
