@@ -1,5 +1,5 @@
 # Alien Dictionary
-## Hard 
+##  Hard 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given a sorted dictionary of an alien language having N words and&nbsp;k starting alphabets of standard dictionary. Find the order of characters in the alien language.<br>
 <strong>Note:</strong>&nbsp;Many orders may be&nbsp;possible for a particular test case, thus&nbsp;you may return any valid order and&nbsp;output will be 1 if the order of string returned by the function is correct else 0 denoting incorrect string returned.</span><br>
