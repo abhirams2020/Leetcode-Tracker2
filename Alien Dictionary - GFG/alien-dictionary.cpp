@@ -9,7 +9,8 @@ using namespace std;
 
 class Solution{
     public:
-    // adj[currNode] stores the predecessor nodes of currNode
+    // adj[currNode] stores the characters bigger than currNode
+    // if a < b, then adj[a] = {b}
     unordered_map<char, vector<char>> adj;
     
     unordered_set<char> visited;
@@ -42,14 +43,17 @@ class Solution{
     }
     
     string findOrder(string dict[], int N, int K) {
+        // initiate all parent nodes with 0 children
         for(int i=0;i<K;i++){
             adj['a'+i] = {};
         }
         
+        // modify adjacency list by finding parent and child after comparing adjacent strings
         for(int i=1;i<N;i++){
             compareStrings(dict[i-1], dict[i]);
         }
         
+        // perform topological sort using DFS. add a character only after all its children are added
         for(auto it:adj){
             char k = it.first;
             if(visited.count(k)==0){
@@ -57,65 +61,11 @@ class Solution{
             }
         }
         
-        // for(auto it:adj){
-        //     char k = it.first;
-        //     vector<char> v = it.second;
-        //     cout<<k<<" : ";
-        //     for(auto c:v){
-        //         cout<<c<<", ";
-        //     }
-        //     cout<<"\n";
-        // }
         reverse(topo.begin(), topo.end());
-        // cout<<topo<<endl;
+        
         return topo;
     }
 };
-
-// class Solution{
-//     public:
-    
-//     void solve(int src, vector<int>& visited, vector<int>& topo, vector<int> adj[]){
-// 	    visited[src] = 1;
-// 	    for(auto i : adj[src]){
-// 	        if(!visited[i]){
-// 	            solve(i,visited,topo,adj);
-// 	        }
-// 	    }
-// 	    topo.push_back(src);
-// 	}
-    
-//     string findOrder(string dict[], int N, int K) {
-//         //code here
-//         vector<int>adj[K];
-//         for(int i=1; i<N; i++){
-//             string s1 = dict[i-1];
-//             string s2 = dict[i];
-//             for(int j=0; j<min(s1.size(),s2.size()); j++){
-//                 if(s1[j] != s2[j]){
-//                   int u = s1[j] - 'a';
-//                   int v = s2[j] - 'a';
-//                   adj[u].push_back(v);
-//                   break;
-//                 }
-//             }
-//         }
-        
-//         vector<int>visited(K,0);
-// 	    vector<int>topo;
-// 	    for(int i=0; i<K; i++){
-// 	        if(!visited[i]){
-// 	            solve(i,visited,topo,adj);
-// 	        }
-// 	    }
-// 	    reverse(topo.begin(),topo.end());
-// 	    string s = "";
-// 	    for(int i=0; i<topo.size(); i++){
-// 	        s+=topo[i] + 'a';
-// 	    }
-// 	    return s;
-//     }
-// };
 
 // { Driver Code Starts.
 string order;
