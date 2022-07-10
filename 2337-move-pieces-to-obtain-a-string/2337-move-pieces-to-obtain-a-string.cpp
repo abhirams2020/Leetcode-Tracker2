@@ -14,29 +14,30 @@ public:
         if(start.length() != target.length()){
             return false;
         }
+        
         if(countChar(start,'L')!=countChar(target,'L') || countChar(start,'R')!=countChar(target,'R')){
             return false;
         }
         
-        vector<pair<char,int>> s;
-        vector<pair<char,int>> t;
+        vector<int> s;
+        vector<int> t;
+        
+        // remove spaces from start and target and store the positions
         for(int i=0;i<start.length();i++){
             if(start[i]!='_')
-                s.push_back({start[i],i});
+                s.push_back(i);
             if(target[i]!='_')
-                t.push_back({target[i],i});
+                t.push_back(i);
         }
         
         for(int i=0;i<s.size();i++){
-            auto it1 = s[i];
-            auto it2 = t[i];
-            if(it1.first!=it2.first){
+            if(start[s[i]]!=target[t[i]]){
                 return false;
             }
-            if(it1.first=='L' && it1.second<it2.second){
+            if(start[s[i]]=='L' && s[i]<t[i]){
                 return false;
             }
-            if(it1.first=='R' && it1.second>it2.second){
+            if(start[s[i]]=='R' && s[i]>t[i]){
                 return false;
             }
         }
