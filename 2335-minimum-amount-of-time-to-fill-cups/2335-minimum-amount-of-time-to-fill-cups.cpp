@@ -13,11 +13,6 @@ public:
                 amount[1]--;
                 t++;
             }
-            else if(amount[2]>0 && amount[0]>0){
-                amount[0]--;
-                amount[2]--;
-                t++;
-            }
             sort(amount.begin(),amount.end(),cmp);
         }
         return t+amount[0];
