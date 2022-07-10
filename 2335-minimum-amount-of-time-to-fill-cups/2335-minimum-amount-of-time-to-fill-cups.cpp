@@ -7,14 +7,11 @@ public:
     int fillCups(vector<int>& amount) {
         int t = 0;
         sort(amount.begin(),amount.end(),cmp);
-        while(amount[0]!=0 && (amount[1]>0 || amount[2]>0)){
-            if(amount[1]>0 && amount[0]>0){
-                amount[0]--;
-                amount[1]--;
-                t++;
-            }
-            sort(amount.begin(),amount.end(),cmp);
+        if(amount[0]>0>0 && amount[1]){
+            amount[0]--;
+            amount[1]--;
+            return 1 + fillCups(amount);
         }
-        return t+amount[0];
+        return amount[0];
     }
 };
