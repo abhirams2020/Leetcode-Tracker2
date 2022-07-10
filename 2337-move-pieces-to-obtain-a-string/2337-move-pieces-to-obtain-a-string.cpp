@@ -11,14 +11,6 @@ public:
     }
     
     bool canChange(string start, string target) {
-        if(start.length() != target.length()){
-            return false;
-        }
-        
-        if(countChar(start,'L')!=countChar(target,'L') || countChar(start,'R')!=countChar(target,'R')){
-            return false;
-        }
-        
         vector<int> s;
         vector<int> t;
         
@@ -26,8 +18,14 @@ public:
         for(int i=0;i<start.length();i++){
             if(start[i]!='_')
                 s.push_back(i);
+        }
+        for(int i=0;i<target.length();i++){
             if(target[i]!='_')
                 t.push_back(i);
+        }
+        
+        if(s.size()!=t.size()){
+            return false;
         }
         
         for(int i=0;i<s.size();i++){
