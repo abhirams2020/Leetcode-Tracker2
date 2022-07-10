@@ -7,7 +7,7 @@ public:
     int fillCups(vector<int>& amount) {
         int t = 0;
         sort(amount.begin(),amount.end(),cmp);
-        if(amount[0]>0>0 && amount[1]){
+        if(amount[0]>0 && amount[1]){
             amount[0]--;
             amount[1]--;
             return 1 + fillCups(amount);
