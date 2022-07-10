@@ -1,7 +1,6 @@
 class SmallestInfiniteSet {
 public:
-    priority_queue<int,vector<int>,greater<>> pq;
-    unordered_set<int> s;
+    unordered_set<int> notInSet;
     
     SmallestInfiniteSet() {
         
@@ -10,8 +9,8 @@ public:
     int popSmallest() {
         int i=1;
         while(true){
-            if(s.count(i)==0){
-                s.insert(i);
+            if(notInSet.count(i)==0){
+                notInSet.insert(i);
                 return i;
             }
             i++;
@@ -19,8 +18,8 @@ public:
     }
     
     void addBack(int num) {
-        if(s.count(num)!=0){
-            s.erase(num);
+        if(notInSet.count(num)!=0){
+            notInSet.erase(num);
         }
     }
 };
