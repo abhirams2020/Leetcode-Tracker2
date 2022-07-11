@@ -19,7 +19,7 @@ public:
             small.push(num);
             // make the sizes of both priority queues similar by popping elements from one queue and pushing to other
             // if small queue is bigger, choose largest elements from small queue and push to large queue
-            while(!small.empty() && small.size() > large.size()+1){
+            while(!small.empty() && small.size() > large.size() + 1){
                 large.push(small.top());
                 small.pop();
             }
@@ -28,7 +28,7 @@ public:
         else {
             large.push(num);
             // if large queue is bigger, choose smallest elements from large queue and push to small queue
-            while(!large.empty() && large.size() > small.size()+1){
+            while(!large.empty() && large.size() > small.size() + 1){
                 small.push(large.top());
                 large.pop();
             }
