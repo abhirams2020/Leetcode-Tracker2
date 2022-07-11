@@ -17,7 +17,7 @@ public:
         // NOTE: This condition used when data in descending order
         if(small.empty() || num<small.top()){
             small.push(num);
-            // make the sizes of both priority queues similar by popping elements from one queue and pushing to other
+            // make sizes of priority queues similar (size diff < 1) by popping elements from one and pushing to other
             // if small queue is bigger, choose largest elements from small queue and push to large queue
             while(!small.empty() && small.size() > large.size() + 1){
                 large.push(small.top());
@@ -41,7 +41,7 @@ public:
             return 0;
         }
         // is small is greater, means small size = large size + 1. So median is in small. Return largest in small.
-        else if(small.size() > large.size()){
+        if(small.size() > large.size()){
             return small.top();
         }
         // is large is greater, means large size = small size + 1. So median is in large. Return smallest in large.
