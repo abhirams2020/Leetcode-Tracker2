@@ -13,23 +13,25 @@ public:
         // IMPORTANT STEP
         // If number < biggest in small, it belongs to small, else it belongs to large
         // Small should always have values >= large
+        
+        // NOTE: This condition used when data in descending order
         if(small.empty() || num<small.top()){
             small.push(num);
+            // make the sizes of both priority queues similar by popping elements from one queue and pushing to other
+            // if small queue is bigger, choose largest elements from small queue and push to large queue
+            while(!small.empty() && small.size() > large.size()+1){
+                large.push(small.top());
+                small.pop();
+            }
         }
+        // NOTE: This condition used when data in ascending order
         else {
             large.push(num);
-        }
-        
-        // make the sizes of both priority queues similar by popping elements from one queue and pushing to other
-        // if small queue is bigger, choose largest elements from small queue and push to large queue
-        while(!small.empty() && small.size() > large.size()+1){
-            large.push(small.top());
-            small.pop();
-        }
-        // if large queue is bigger, choose smallest elements from large queue and push to small queue
-        while(!large.empty() && large.size() > small.size()+1){
-            small.push(large.top());
-            large.pop();
+            // if large queue is bigger, choose smallest elements from large queue and push to small queue
+            while(!large.empty() && large.size() > small.size()+1){
+                small.push(large.top());
+                large.pop();
+            }
         }
     }
     
