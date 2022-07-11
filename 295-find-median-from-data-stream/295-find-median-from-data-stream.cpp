@@ -1,8 +1,8 @@
 class MedianFinder {
 public:
     // small has elements less than or equal to large and sorted in descending order
-    priority_queue<int> small;
     // large has elements greater than or equal to small and sorted in ascending order
+    priority_queue<int> small;
     priority_queue<int,vector<int>,greater<>> large;
     
     MedianFinder() {
@@ -14,20 +14,22 @@ public:
         // If number < biggest in small, it belongs to small, else it belongs to large
         // Small should always have values >= large
         
-        // NOTE: This condition used when data in descending order
+        // This condition used when data in descending order
         if(small.empty() || num<small.top()){
             small.push(num);
             // make sizes of priority queues similar (size diff < 1) by popping elements from one and pushing to other
-            // if small queue is bigger, choose largest elements from small queue and push to large queue
+            // the heap in which num was pushed should always have bigger size since new median is biased towards it.
+            
+            // if small queue is bigger than large by more than 1, make the sizes similar by pop from small and push to large
             while(!small.empty() && small.size() > large.size() + 1){
                 large.push(small.top());
                 small.pop();
             }
         }
-        // NOTE: This condition used when data in ascending order
+        // This condition used when data in ascending order
         else {
             large.push(num);
-            // if large queue is bigger, choose smallest elements from large queue and push to small queue
+            // if large queue is bigger than small by more than 1, make the sizes similar by pop from large and push to small
             while(!large.empty() && large.size() > small.size() + 1){
                 small.push(large.top());
                 large.pop();
@@ -37,18 +39,18 @@ public:
     
     double findMedian() {
         // if both are empty, no median exist. so return 0
+        // if small is greater, means small size = large size + 1. So median is in small. Return largest in small.
+        // if large is greater, means large size = small size + 1. So median is in large. Return smallest in large.
+        // if both are same size, take average of largest in small and smallest in large
         if(small.empty() && large.empty()){
             return 0;
         }
-        // is small is greater, means small size = large size + 1. So median is in small. Return largest in small.
         if(small.size() > large.size()){
             return small.top();
         }
-        // is large is greater, means large size = small size + 1. So median is in large. Return smallest in large.
         else if(large.size() > small.size()){
             return large.top();
         }
-        // if both are same size, take average of largest in small and smallest in large
         else {
             return (double)(small.top() + large.top())/2.0;
         }
