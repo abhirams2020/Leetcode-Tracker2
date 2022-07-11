@@ -85,10 +85,10 @@ class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
-        int dp[n+2];
+        int dp[n+1];
         memset(dp,-1,sizeof(dp));
         // when index==n, result is 0.
-        for(int prevIndex=-1;prevIndex+1<n+2;prevIndex++){
+        for(int prevIndex=-1;prevIndex+1<n+1;prevIndex++){
             dp[prevIndex+1] = 0;
         }
         for(int index=n-1;index>=0;index--){
