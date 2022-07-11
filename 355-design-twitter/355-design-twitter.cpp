@@ -15,24 +15,17 @@ public:
     
     vector<int> getNewsFeed(int userId) {
         vector<int> ans;
-        vector<vector<int>> temp;
+        // vector<vector<int>> temp;
+        set<vector<int>> temp;
         int count = 0;
-        // for(auto [k,v]:following){
-        //     cout<<k<<" : ";
-        //     for(auto i:v){
-        //         cout<<i<<", ";
-        //     }
-        //     cout<<"\n";
-        // }
         while(!posts.empty() && count<10){
             auto it = posts.top();
-            // cout<<it[0]<<" "<<it[1]<<" "<<it[2]<<"\n";
-            
             if(it[1]==userId || following[userId].count(it[1])){
                 ans.push_back(it[2]);
                 count++;
             }
-            temp.push_back(posts.top());
+            // temp.push_back(posts.top());
+            temp.insert(posts.top());
             posts.pop();
         }
         for(auto v:temp){
