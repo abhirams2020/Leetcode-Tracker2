@@ -40,6 +40,7 @@ public:
             dp[s.length()][j] = 0;
         }
         // when t index=t.length(), ans should be 1
+        // assign 1 to t.length() index after assigingn 0 to s.length() index since dp[s.length()][t.length()] = 1
         for(int i=0;i<=s.length();i++){
             dp[i][t.length()] = 1;
         }
