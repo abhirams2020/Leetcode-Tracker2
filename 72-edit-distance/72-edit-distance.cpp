@@ -2,35 +2,35 @@ class Solution {
 public:
     int dp[501][501];
     
-    int solve(string& word1, string& word2, int i, int j, int n1, int n2){
+    int solve(string& word1, string& word2, int i, int j){
         // if we reached end of both, it means word1==word2
-        if(j>=word2.length() && i>=word1.length()){
+        if(i==0 && j==0){
             return 0;
         }
-        // if we reached end of word1,  word1[0 to n1-1] == word2[0 to n1-1]. add word2[n1 to n2-1] to word1.
-        if(i>=word1.length()){
-            return dp[i][j] = (n2-1)-n1+1;
+        // if we reached end of word1, insert remaining characters of word2 to word1.
+        if(i==0){
+            return dp[i][j] = j;
         }
-        if(j>=word2.length()){
-            return dp[i][j] = (n1-1)-n2+1;
+        // if we reached end of word2, remove extra characters from word1.
+        if(j==0){
+            return dp[i][j] = i;
         }
         if(dp[i][j]!=-1){
             return dp[i][j];
         }
-        if(word1[i]==word2[j]){
-            return dp[i][j] = solve(word1,word2,i+1,j+1,n1,n2);
+        if(word1[i-1]==word2[j-1]){
+            return dp[i][j] = solve(word1,word2,i-1,j-1);
         }
-        int ins=INT_MAX, del=INT_MAX, rep=INT_MAX;
         
-        ins = min(ins, solve(word1,word2,i,j+1,n1+1,n2));
-        del = min(del, solve(word1,word2,i+1,j,n1-1,n2));
-        rep = min(rep, solve(word1,word2,i+1,j+1,n1,n2));
+        int ins = solve(word1,word2,i,j-1);
+        int del = solve(word1,word2,i-1,j);
+        int rep = solve(word1,word2,i-1,j-1);
         
-        return dp[i][j] = 1 + min(ins, min(del,rep));
+        return dp[i][j] = 1 + min({ins,del,rep});
     }
     
     int minDistance(string word1, string word2) {
         memset(dp,-1,sizeof(dp));
-        return solve(word1,word2,0,0,word1.length(),word2.length());
+        return solve(word1,word2,word1.length(),word2.length());
     }
 };
