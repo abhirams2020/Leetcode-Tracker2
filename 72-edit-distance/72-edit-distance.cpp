@@ -28,14 +28,14 @@ public:
         // since we are doing an operation, add 1 to the result.
         
         // insert -> word2[j] is inserted to word1. move j but i remains at same character.
-        int ins = 1 + solve(word1,word2,i,j-1);
+        int ins = solve(word1,word2,i,j-1);
         // delete -> word1[i] is deleted. So move i to next index but j remains at same place.
-        int del = 1 + solve(word1,word2,i-1,j);
+        int del = solve(word1,word2,i-1,j);
         // replace -> word1[i] is replaced with word2[j]. move both i and j to next index.
-        int rep = 1 + solve(word1,word2,i-1,j-1);
+        int rep = solve(word1,word2,i-1,j-1);
         
         // find min of result after all 3 operations and assign to dp[i][j]
-        return dp[i][j] = min({ins,del,rep});
+        return dp[i][j] = 1 + min({ins,del,rep});
     }
     
     int minDistance(string word1, string word2) {
