@@ -67,11 +67,14 @@ public:
                 }
                 else {
                     // do 1 operation and take min after doing those operations
-                    dp[i][j] = 1 + min({dp[i][j-1], dp[i-1][j], dp[i-1][j-1]});
+                    int ins = dp[i][j-1];
+                    int del = dp[i-1][j];
+                    int rep = dp[i-1][j-1];
+                    dp[i][j] = 1 + min({ins,del,rep});
                 }
             }
         }
-        // final answer = solve(0,0,m,n) = dp[m][n]
+        // final answer = solve(word1,word2,m,n) = dp[m][n]
         return dp[m][n];
     }
 };
