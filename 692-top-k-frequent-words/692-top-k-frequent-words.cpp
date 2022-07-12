@@ -32,7 +32,7 @@ public:
 // METHOD 2 : USING PRIORITY QUEUE AND CUSTOM SORT
 using pis = pair<int,string>;
 
-// when custom comparator for priority returns true, it means no swap.
+// when custom comparator for priority returns true, it means no swap. Compare for pq is opposite to compare for vector.
 // eg for order in pq -> TOP : [ [1,leetcode], [1,coding], [2,love], [2,i] ]
 // when we pop from pq, lowest freq elements should pop and for same freq, highest lexicographical string should pop
 class comp {
