@@ -50,6 +50,7 @@ public:
         int dp[n][n];
         memset(dp,0,sizeof(dp));
 
+        // dont know why i and j taken in this order
         for(int i=n-1;i>=0;i--) {
             for(int j=0;j<=n-1;j++) {
                 if(j-i+1<=2)
