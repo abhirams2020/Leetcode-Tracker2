@@ -2,7 +2,7 @@
 // // Matrix chain multiplication with divide and conquer
 // class Solution {
 // public:
-//     int dp[305][305];
+//     int dp[302][302];
     
 //     int solve(vector<int> &nums, int i, int j){
 //         // if size becomes 2, then we cannot burst baloon
@@ -43,13 +43,11 @@
 // Matrix chain multiplication with divide and conquer
 class Solution {
 public:
-    
-    // Tabulation 
     int maxCoins(vector<int>& nums) {
         nums.push_back(1);
         nums.insert(nums.begin(),1);
         int n = nums.size();
-        int dp[n+5][n+5];
+        int dp[n][n];
         memset(dp,0,sizeof(dp));
 
         for(int i=n-1;i>=0;i--) {
