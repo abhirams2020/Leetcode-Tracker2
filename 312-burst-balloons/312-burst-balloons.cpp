@@ -1,38 +1,42 @@
 // DP with divide and conquer
 // Matrix chain multiplication
+// Inserting 1 to front and back of nums for out of bounds condition
 class Solution {
 public:
     int dp[305][305];
     
-    int solve(vector<int> &nums, int i, int j, int left, int right){
-        if(i>j){
+    int solve(vector<int> &nums, int i, int j){
+        // if size becomes 2, then we cannot burst baloon
+        if(j-i+1 <= 2){
             return 0;
         }
-        // if only 1 element left, return left*curr*right
-        if(i==j){
-            return dp[i][j] = left*nums[i]*right;
+        // if only 3 element left, return left*curr*right
+        if(j-i+1 == 3){
+            return dp[i][j] = nums[i]*nums[i+1]*nums[j];
         }
         
         if(dp[i][j]!=-1){
             return dp[i][j];
         }
         // k partitions the array to 2 parts [i,k] and [k,j]
-        // we consider all elements other than k in i to j range is burst
-        // for most coins, if last element is nums[k], find most coins possible when i to k and k to j was burst.
+        // we consider all elements other than k in i+1 to j-1 range is burst
+        // for most coins, if last element is nums[k], find most coins possible when i+1 to k and k to j-1 was burst.
         
-        // fn[x,y] = max no of coins possible by bursting baloons bw and not including x and y
-        // fn[l,r] = max {nums[i-1]*nums[i]*nums[i+1] + fn[l,i] + fn[i,r]}
+        // fn[i,j] = max no of coins possible by bursting baloons in range [i+1, j-1].
+        // fn[i,j] = max {nums[i]*nums[k]*nums[j] + fn[i,k] + fn[k,j]}
+        // NOTE : nums[k-1]*nums[k]*nums[k+1] gives wrong answer since i+1 to k-1 and k+1 to j-1 baloons have burst before
         int maxVal = 0;
         
-        for(int k=i;k<=j;k++){
-            maxVal = max(maxVal,
-                         left*nums[k]*right + solve(nums, i,k-1, left,nums[k]) + solve(nums, k+1,j, nums[k],right));
+        for(int k=i+1;k<=j-1;k++){
+            maxVal = max(maxVal,  nums[i]*nums[k]*nums[j] + solve(nums, i, k) + solve(nums, k, j));
         }
         return dp[i][j] = maxVal;
     }
     
     int maxCoins(vector<int>& nums) {
         memset(dp,-1,sizeof(dp));
-        return solve(nums,0,nums.size()-1,1,1);
+        nums.insert(nums.begin(),1);
+        nums.push_back(1);
+        return solve(nums,0,nums.size()-1);
     }
 };
