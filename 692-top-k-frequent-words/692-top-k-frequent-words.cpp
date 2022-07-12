@@ -67,7 +67,7 @@ public:
             ans.push_back(pq.top().second);
             pq.pop();
         }
-        // since pq is minheap, the 
+        // since pq is minheap, the order will be reverse
         reverse(ans.begin(),ans.end());
         return ans;
     }
