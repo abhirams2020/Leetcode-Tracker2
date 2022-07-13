@@ -35,21 +35,25 @@ using namespace std;
 
 class Solution{
 public:
-int dp[101][101];
-
-int MCM(int arr[], int i, int j) {
-    if(j-i+1 < 3) {
-        return 0;
+    int dp[101][101];
+    
+    // IMP : MCM(i,j) gives min no of multiplications reqd between i and j not including it.
+    int MCM(int arr[], int i, int j) {
+        if(j-i+1 < 3) {
+            return 0;
+        }
+        if(dp[i][j] != -1){
+            return dp[i][j];
+        }
+        int minVal = INT_MAX;
+        // k paritions the array to 2 parts, i to k and k to j.
+        // fn[i,j] = min no of operations possible by multiplying in range [i+1, j-1].
+        // fn[i,j] = min {nums[i]*nums[k]*nums[j] + fn[i,k] + fn[k,j]}
+        for(int k=i+1;k<=j-1;k++) {
+            minVal = min(minVal, arr[i]*arr[k]*arr[j] + MCM(arr,i,k) + MCM(arr,k,j));
+        }
+        return dp[i][j] = minVal;
     }
-    if(dp[i][j] != -1){
-        return dp[i][j];
-    }
-    int minVal = INT_MAX;
-    for(int k=i+1;k<=j-1;k++) {
-        minVal = min(minVal, arr[i]*arr[k]*arr[j] + MCM(arr,i,k) + MCM(arr,k,j));
-    }
-    return dp[i][j] = minVal;
-}
 
     int matrixMultiplication(int N, int arr[])
     {
