@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dp[35][25];
+    int dp[31][21];
     
     bool solve(string &str, string &target, int i, int j) {
         // cout<<i<<" "<<j<<"\n";
