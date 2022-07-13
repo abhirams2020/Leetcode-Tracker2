@@ -1,4 +1,5 @@
 /*
+// BRUTE FORCE APPROACH BY BACKTRACKING
 class Solution {
 public:
     // count rows where all values in a row is same
@@ -49,20 +50,18 @@ public:
     int maxEqualRowsAfterFlips(vector<vector<int>>& matrix) {
         unordered_map<string,int> mp;
         for(int i=0;i<matrix.size();i++){
-            int prev = matrix[i][0];
+            int first = matrix[i][0];
             int j = 1;
-            int count = 1;
-            string temp = "";
-            while(j<matrix[0].size()){
-                if(matrix[i][j]==prev){
-                    count++;
+            string temp = "T";
+            // for each row, find the pattern of the row. eg. 100100 and 011011 have same pattern
+            // only rows with same pattern will be counted when flipped. pattern = TFFTFF
+            for(int j=1;j<matrix[0].size();j++){
+                if(matrix[i][j]==first){
+                    temp.push_back('T');
                 }
                 else {
-                    temp += to_string(count);
-                    prev = matrix[i][j];
-                    count = 1;
+                    temp.push_back('F');
                 }
-                j++;
             }
             mp[temp]++;
         }
