@@ -55,6 +55,7 @@ public:
             string temp = "T";
             // for each row, find the pattern of the row. eg. 100100 and 011011 have same pattern
             // only rows with same pattern will be counted when flipped. pattern = TFFTFF
+            // number == first num will be T, otherwise it is F.
             for(int j=1;j<matrix[0].size();j++){
                 if(matrix[i][j]==first){
                     temp.push_back('T');
