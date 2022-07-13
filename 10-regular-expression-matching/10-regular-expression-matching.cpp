@@ -14,7 +14,7 @@ public:
         // if target reached end but str is not reached end
         if(j==target.length()){
             // if there is no * at str[i+1], return false
-            // if str[i+1] is *, means we can skip it and move to i+2.
+            // if str[i+1] is *, means we can skip str[i] and move to i+2.
             if(i+1<str.length() && str[i+1]=='*'){
                 return dp[i][j] = solve(str,target,i+2,j);
             }
