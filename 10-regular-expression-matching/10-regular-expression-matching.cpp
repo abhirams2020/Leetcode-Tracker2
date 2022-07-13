@@ -2,22 +2,14 @@ class Solution {
 public:
     int dp[31][21];
     
+    // solve(s,t,i,j) checks if s[i] to s[m-1] match t[j] to t[n-1]
     bool solve(string &str, string &target, int i, int j) {
-        // cout<<i<<" "<<j<<"\n";
+        // reached end of both, means str is matching target
         if(i==str.length() && j==target.length()){
             return true;
         }
-        // reached end of str but still target not found
+        // reached end of str but still target not matched
         if(i==str.length()){
-            return false;
-        }
-        // if target reached end but str is not reached end
-        if(j==target.length()){
-            // if there is no * at str[i+1], return false
-            // if str[i+1] is *, means we can skip str[i] and move to i+2.
-            if(i+1<str.length() && str[i+1]=='*'){
-                return dp[i][j] = solve(str,target,i+2,j);
-            }
             return false;
         }
         
@@ -27,22 +19,21 @@ public:
         
         // Case-1 : if str[i] has * next to it, str[i] can be taken 0 times till n times
         //          in this case, at i, we can skip to i+2 or remain at i and check if str[i] match target[j]
-        // Case-2 : if both pointer at alphabet, check if equal and move both to next
+        // Case-2 : if str pointer at alphabet, check if equal and move both to next
         // Case-3 : if str pointer is at '.', move both to next
         
         bool ans = false;
         
+        // check if current i and j are a valid match.
+        bool match = i<str.length() && j<target.length() && (str[i]==target[j] || str[i]=='.');
+        
         if(i+1<str.length() && str[i+1]=='*') {
-            if(str[i]==target[j] || str[i]=='.')
+            if(match)
                 ans = solve(str,target,i,j+1) || solve(str,target,i+2,j);
-            else 
+            else
                 ans = solve(str,target,i+2,j);
         }
-        else if(isalpha(str[i])){
-            if(str[i]==target[j])
-                ans = solve(str,target,i+1,j+1);
-        }
-        else if(str[i]=='.'){
+        else if(match){
             ans = solve(str,target,i+1,j+1);
         }
         return dp[i][j] = ans;
