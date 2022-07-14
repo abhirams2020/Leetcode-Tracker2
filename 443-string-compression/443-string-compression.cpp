@@ -27,14 +27,16 @@ public:
         else {
             ans += prev;
         }
-        // chars.resize(ans.length());
-        // for(int i=0;i<ans.length();i++){
-        //     chars[i] = ans[i];
-        // }
+        
+        // Replace chars with elements in ans
         chars.clear();
         for(int i=0;i<ans.length();i++){
             chars.push_back(ans[i]);
         }
+        // chars.resize(ans.length());
+        // for(int i=0;i<ans.length();i++){
+        //     chars[i] = ans[i];
+        // }
         return chars.size();
     }
 };
