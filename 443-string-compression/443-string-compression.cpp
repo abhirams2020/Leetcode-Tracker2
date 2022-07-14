@@ -1,3 +1,5 @@
+/*
+// USING ANOTHER STRING TO STORE RESULT AND COPYING THAT TO CHARS
 class Solution {
 public:
     int compress(vector<char>& chars) {
@@ -38,5 +40,33 @@ public:
         //     chars[i] = ans[i];
         // }
         return chars.size();
+    }
+};
+*/
+
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        int slow = 0, fast = 1;
+        int count = 1;
+        while(fast<=chars.size()){
+            if(fast==chars.size() || chars[fast]!=chars[fast-1]){
+                // add char + count to slow position and move  slow
+                chars[slow] = chars[fast-1];
+                slow++;
+                if(count!=1){
+                    for(auto c:to_string(count)){
+                        chars[slow] = c;
+                        slow++;
+                    }
+                }
+                count = 1;
+            }
+            else {
+                count++;
+            }
+            fast++;
+        }
+        return slow;
     }
 };
