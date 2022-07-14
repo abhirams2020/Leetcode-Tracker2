@@ -4,7 +4,7 @@ public:
         string ans = "";
         char prev=chars[0];
         int count = 1;
-        // cout<<"Hi0\n";
+        // if prev!=curr, add {char+count} to ans. else increase count.
         for(int i=1;i<chars.size();i++){
             if(chars[i]!=prev){
                 if(count!=1){
@@ -20,20 +20,21 @@ public:
                 count++;
             }
         }
-        // cout<<"Hi\n";
+        // to add the last character's count.
         if(count!=1){
             ans += prev + to_string(count);
         }
         else {
             ans += prev;
         }
-        // chars.clear();
-        chars.resize(ans.length());
-        // cout<<"Hi2\n";
+        // chars.resize(ans.length());
+        // for(int i=0;i<ans.length();i++){
+        //     chars[i] = ans[i];
+        // }
+        chars.clear();
         for(int i=0;i<ans.length();i++){
-            chars[i] = ans[i];
+            chars.push_back(ans[i]);
         }
-        // cout<<ans<<"\n";
         return chars.size();
     }
 };
