@@ -44,9 +44,12 @@ public:
 };
 */
 
+// CHANGING THE ARRAY IN PLACE USING FAST AND SLOW POINTER
 class Solution {
 public:
     int compress(vector<char>& chars) {
+        // slow denotes position to add current char and its count
+        // fast denotes position where we're checking if curr==prev
         int slow = 0, fast = 1;
         int count = 1;
         while(fast<=chars.size()){
@@ -67,6 +70,7 @@ public:
             }
             fast++;
         }
+        // slow stores index to modify in array. we completed checking the array, slow=new array.size()
         return slow;
     }
 };
