@@ -7,7 +7,7 @@ public:
                 res += "[.]";
             }
             else {
-                res.push_back(c);
+                res += c;
             }
         }
         return res;
