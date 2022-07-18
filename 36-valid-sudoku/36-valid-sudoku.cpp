@@ -71,6 +71,7 @@ public:
             }
             dpGrid[gridRowIdx][gridColIdx] = true;
         }
+        
         return true;
     }
     
@@ -80,6 +81,7 @@ public:
         memset(dpGrid,-1,sizeof(dpGrid));
         for(int i=0;i<board.size();i++){
             for(int j=0;j<board[0].size();j++){
+                // for every cell in board, check if it is valid
                 if(checkValid(board,i,j)==false){
                     return false;
                 }
