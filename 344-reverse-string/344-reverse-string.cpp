@@ -1,16 +1,14 @@
 class Solution {
 public:
-    void reverse(vector<char>& s, int i){
-        int n = s.size();
-        if(i==n-1){
+    void reverse(vector<char>& s, int l, int r){
+        if(l>=r){
             return;
         }
-        s.insert(s.begin()+i,s[n-1]);
-        s.pop_back();
-        reverse(s,i+1);
+        swap(s[l],s[r]);
+        reverse(s,l+1,r-1);
     }
         
     void reverseString(vector<char>& s) {
-        reverse(s,0);
+        reverse(s,0,s.size()-1);
     }
 };
