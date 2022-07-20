@@ -2,14 +2,15 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         sort(nums.begin(),nums.end());
-        int req = 0;
+        int reqSum = 0;
         vector<vector<int>> ans;
         for(int i=0;i<nums.size();i++){
+            // skip index if repeated value
             if(i!=0 && nums[i]==nums[i-1]){
                 continue;
             }
-            int currSum = req - nums[i];
-            unordered_set<int> s;
+            int currSum = reqSum - nums[i];
+            // since the array is sorted, we can use 2 pointers
             int l=i+1, r=nums.size()-1;
             while(l<r){
                 if(l!=i+1 && nums[l] == nums[l-1]){
