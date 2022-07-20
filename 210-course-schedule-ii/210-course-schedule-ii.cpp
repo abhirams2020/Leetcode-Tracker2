@@ -1,7 +1,11 @@
 class Solution {
 public:
     vector<int> topo;
-    vector<int> visited;
+    int visited[2001];
+    // visited set for checking if node visited again during dfs
+    // 0 -> node not visited
+    // 1 -> node visited
+    // 2 -> node visited and the course can be taken
     
     bool isCycle(vector<vector<int>> &graph, int curr){
         visited[curr] = 1;
@@ -22,7 +26,8 @@ public:
     }
     
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        visited.resize(numCourses+1,false);
+        memset(visited,0,sizeof(visited));
+        // graph[curr] gives list of prerequisites
         vector<vector<int>> graph(numCourses+1);
         for(auto it:prerequisites){
             graph[it[0]].push_back(it[1]);
