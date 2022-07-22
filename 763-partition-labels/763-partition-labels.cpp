@@ -1,3 +1,4 @@
+/*
 class Solution {
 public:
     // check if there is any intersection between map a and map b
@@ -33,6 +34,31 @@ public:
             }
             ans.push_back(r-l);
             l = r;
+        }
+        
+        return ans;
+    }
+};
+*/
+
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+        vector<int> ans;
+        unordered_map<char,int> mp;
+        for(int i=0;i<s.length();i++){
+            mp[s[i]] = i;
+        }
+        
+        int l=0, r=0;
+        while(r<s.length()){
+            int lastIdx = -1;
+            while(lastIdx==-1 || r<=lastIdx){
+                lastIdx = max(lastIdx, mp[s[r]]);
+                r++;
+            }
+            ans.push_back(r-l);
+            l =  r;
         }
         
         return ans;
