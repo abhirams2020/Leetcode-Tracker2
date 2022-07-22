@@ -35,6 +35,7 @@ public:
 };
 */
 
+/*
 class Solution {
 public:
     // O(1) space and O(m*n) time
@@ -42,9 +43,7 @@ public:
     // If triplet value > target values, answer will not be obtained
     bool mergeTriplets(vector<vector<int>>& triplets, vector<int>& target) {
         int maxX=target[0], maxY=target[1], maxZ=target[2];
-        
-        vector<vector<int>> validTriplets;
-        
+
         // from valid triplets, find max at each position and assign to maxTriplet
         vector<int> maxTriplet(target.size(), 0);
         
@@ -67,9 +66,29 @@ public:
                     return true;
                 }
             }
-            
         }
         
         return maxTriplet==target;
+    }
+};
+*/
+
+class Solution {
+public:
+    // O(1) space and O(m*n) time
+    // Find triplets which are less than or equal to target since only they can give target on combining
+    // If triplet value > target values, answer will not be obtained
+    bool mergeTriplets(vector<vector<int>>& triplets, vector<int>& target) {
+        bool first=false, second=false, third=false;
+        
+        for(auto t:triplets){
+            if(t[0]<=target[0] && t[1]<=target[1] && t[2]<=target[2]){
+                first = first || (t[0]==target[0]);
+                second = second || (t[1]==target[1]);
+                third = third || (t[2]==target[2]);
+            }
+        }
+        
+        return first && second && third;
     }
 };
