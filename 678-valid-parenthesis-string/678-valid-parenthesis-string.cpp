@@ -88,6 +88,7 @@ public:
 };
 */
 
+// TRICK SOLUTION. DP BETTER
 class Solution {
 public:
     bool checkValidString(string s) {
