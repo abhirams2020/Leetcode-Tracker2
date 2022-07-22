@@ -82,17 +82,20 @@ public:
         bool first=false, second=false, third=false;
         
         for(auto t:triplets){
+            // valid triplets are which has values <= target at corresponding positions
             if(t[0]<=target[0] && t[1]<=target[1] && t[2]<=target[2]){
+                // if we obtain corresponding target value, update that position to true
                 first = first || (t[0]==target[0]);
                 second = second || (t[1]==target[1]);
                 third = third || (t[2]==target[2]);
                 
+                // after checking every valid triplet, check if we got target
                 if(first && second && third){
                     return true;
                 }
             }
         }
-        
+        // if all are found return true
         return first && second && third;
     }
 };
