@@ -52,13 +52,16 @@ public:
         
         int l=0, r=0;
         while(r<s.length()){
-            int lastIdx = -1;
-            while(lastIdx==-1 || r<=lastIdx){
+            // at start, make l = curr pos of r
+            l = r;
+            int lastIdx = mp[s[r]];
+            while(r<lastIdx){
                 lastIdx = max(lastIdx, mp[s[r]]);
                 r++;
             }
-            ans.push_back(r-l);
-            l =  r;
+            ans.push_back(r-l+1);
+            // move left to next of curr subset
+            r++;
         }
         
         return ans;
