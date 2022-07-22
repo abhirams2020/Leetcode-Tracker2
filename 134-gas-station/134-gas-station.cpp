@@ -1,3 +1,5 @@
+/*
+// adding possible start index to queue and check each one
 class Solution {
 public:
     int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
@@ -53,5 +55,38 @@ public:
             }
         }
         return -1;
+    }
+};
+*/
+
+// from neetcode. if the cycle exists, from i to end, if we can travel it means i is start index
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        // q has indexes of possible answers
+        int n = gas.size();
+        // if solution exists, sum of gas >= sum of cost
+        int totalGas=0, totalCost=0;
+        for(int i=0;i<n;i++){
+            totalGas += gas[i];
+            totalCost += cost[i];
+        }
+        
+        if(totalGas < totalCost){
+            return -1;
+        }
+        
+        int start = 0;
+        int fuel = 0;
+        
+        for(int i=0;i<n;i++){
+            if(fuel<0){
+                start = i;
+                fuel = 0;
+            }
+            fuel = fuel + gas[i] - cost[i];
+        }
+        
+        return start;
     }
 };
