@@ -3,6 +3,17 @@ public:
     int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
         // q has indexes of possible answers
         int n = gas.size();
+        // if solution exists, sum of gas >= sum of cost
+        int totalGas=0, totalCost=0;
+        for(int i=0;i<n;i++){
+            totalGas += gas[i];
+            totalCost += cost[i];
+        }
+        
+        if(totalGas < totalCost){
+            return -1;
+        }
+        
         queue<int> q;
         for(int i=0;i<n;){
             // at starting startion, we need to move cost[i] to get from i to i+1
