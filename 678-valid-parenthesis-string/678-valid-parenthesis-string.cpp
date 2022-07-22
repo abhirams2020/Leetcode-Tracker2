@@ -1,12 +1,16 @@
 class Solution {
 public:
+    bool flag = false;
     int dp[100][100][100];
     
     // all permutations of current expression by replacing * with brackets or empty
     bool isBalanced(string &s, int i, int left, int right){
+        if(flag==true){
+            return true;
+        }
         if(i==s.length()){
             if(left==right){
-                return true;
+                return flag = true;
             }
             return false;
         }
@@ -35,6 +39,7 @@ public:
         
     bool checkValidString(string s) {
         memset(dp,-1,sizeof(dp));
-        return isBalanced(s,0,0,0);
+        bool ans = isBalanced(s,0,0,0);
+        return flag;
     }
 };
