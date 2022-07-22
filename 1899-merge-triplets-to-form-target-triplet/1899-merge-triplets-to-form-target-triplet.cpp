@@ -86,6 +86,10 @@ public:
                 first = first || (t[0]==target[0]);
                 second = second || (t[1]==target[1]);
                 third = third || (t[2]==target[2]);
+                
+                if(first && second && third){
+                    return true;
+                }
             }
         }
         
