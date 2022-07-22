@@ -20,22 +20,25 @@ public:
             }
         }
         
+        // for every index in queue, check if it can complete the circuit
         while(!q.empty()){
-            int curr = q.front();
+            int start = q.front();
             q.pop();
-            int tempCurr = curr;
-            int fuel = gas[curr] - cost[curr];
-            curr = (curr+1)%n;
+            int i = start;
+            // initially we are at index i and fuel is 0.
+            int fuel = 0;
             while(true){
+                // travel from i to i+1
+                fuel = fuel - cost[i] + gas[i];
+                // if fuel becomes 0 before reaching next station, break the loop
                 if(fuel < 0){
                     break;
-                }                
-                if(curr == tempCurr){
-                    return tempCurr;
                 }
-
-                fuel = fuel - cost[curr] + gas[curr];
-                curr = (curr+1)%n;
+                i = (i+1)%n;
+                // if next station is starting station, return that index
+                if(i == start){
+                    return start;
+                }
             }
         }
         return -1;
