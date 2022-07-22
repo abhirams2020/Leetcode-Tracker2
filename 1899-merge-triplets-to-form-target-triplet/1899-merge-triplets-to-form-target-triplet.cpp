@@ -56,11 +56,18 @@ public:
                     count++;
                 }
             }
+            
+            // if count==target.size() means all members are <= corresponding members in target
             if(count==target.size()){
                 for(int j=0;j<triplets[i].size(); j++){
                     maxTriplet[j] = max(maxTriplet[j], triplets[i][j]);
                 }
+                // after every updation of maxTriplet, check if target has been obtained
+                if(maxTriplet==target){
+                    return true;
+                }
             }
+            
         }
         
         return maxTriplet==target;
