@@ -1,3 +1,5 @@
+/*
+// USING MEMOIZATION DP
 class Solution {
 public:
     int INF = 1e5;
@@ -24,5 +26,47 @@ public:
     int jump(vector<int>& nums) {
         memset(dp,-1,sizeof(dp));
         return solve(nums,0);
+    }
+};
+*/
+
+// USING BFS
+// FROM EACH POSITION WE CAN JUMP TO i+1 to i+nums[i]
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        if(nums.size()==1){
+            return 0;
+        }
+        int end = nums.size()-1;
+        queue<int> q; // q for storing index
+        q.push(0);
+        int jumps = 0;
+
+        vector<bool> visited(nums.size(), false);
+        visited[0] = true;
+
+        while(!q.empty()){
+            int n = q.size();
+            // going through all jumps for each element in queue
+            for(int i=0;i<n;i++){
+                int curr_i = q.front();
+                q.pop();
+                if(curr_i >= end){
+                    return jumps;
+                }
+                for(int j=nums[curr_i];j>=1;j--){
+                    if(curr_i+j<=nums.size()-1 && visited[curr_i+j]==false){
+                        visited[curr_i+j] = true;
+                        q.push(curr_i+j);
+                    }
+                    else if(curr_i+j > nums.size()-1){
+                        q.push(curr_i+j);
+                    }
+                }
+            }
+            jumps++;
+        }
+        return jumps;
     }
 };
