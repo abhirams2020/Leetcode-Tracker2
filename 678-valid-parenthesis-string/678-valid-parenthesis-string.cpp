@@ -43,7 +43,6 @@ public:
         return flag;
     }
 };
-*/
 
 // DP WITH MEMOIZATION BY COUNTING NUMBER OF UNMATCHED LEFT SO FAR
 // IF UNMATCHED LEFT < 1, RETURN FALSE
@@ -85,5 +84,36 @@ public:
     bool checkValidString(string s) {
         memset(dp,-1,sizeof(dp));
         return isBalanced(s,0,0);
+    }
+};
+*/
+
+class Solution {
+public:
+    bool checkValidString(string s) {
+        // leftMin = min no of unmatched left possible
+        // leftMax = max no of unmatched left possible
+        int leftMax=0, leftMin=0;
+        for(int i=0;i<s.length();i++){
+            if(s[i]=='('){
+                leftMin++;
+                leftMax++;
+            }
+            else if(s[i]==')'){
+                leftMin--;
+                leftMax--;
+            }
+            else if(s[i]=='*'){
+                leftMin = leftMin-1;
+                leftMax = leftMax+1;
+            }
+            if(leftMin<0){
+                leftMin=0;
+            }
+            if(leftMax<0){
+                return false;
+            }
+        }
+        return leftMin==0;
     }
 };
