@@ -30,7 +30,7 @@ public:
 };
 */
 
-// USING BFS
+// USING BFS. FROM EACH NODE, ITS NEIGHBOURS ARE CURR_INDEX + J WHERE J = [1,nums[CURR_INDEX]]
 // FROM EACH POSITION WE CAN JUMP TO i+1 to i+nums[i]
 class Solution {
 public:
