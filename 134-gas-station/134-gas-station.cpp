@@ -79,6 +79,8 @@ public:
         int start = 0;
         int fuel = 0;
         
+        // if start can travel till end, it means cycle can be completed.
+        // update start if at any point fuel less than 0.
         for(int i=0;i<n;i++){
             if(fuel<0){
                 start = i;
