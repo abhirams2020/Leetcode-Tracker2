@@ -104,10 +104,10 @@ public:
         // if s[i] is bracket, add to op
         else {
             if(s[i]==')'){
-                ans = ans || isBalanced(s,i+1,left-1);
+                ans = isBalanced(s,i+1,left-1);
             }
             else if(s[i]=='('){
-                ans = ans || isBalanced(s,i+1,left+1);
+                ans = isBalanced(s,i+1,left+1);
             }
         }
         return dp[i][left] = ans;
