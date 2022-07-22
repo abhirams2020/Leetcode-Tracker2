@@ -1,15 +1,11 @@
-
+// DP MEMOIZATION BY STORING COUNT OF LEFT AND RIGHT BRACKET SO FAR
 class Solution {
 public:
     bool flag = false;
-    // int dp[100][100][100];
-    map<vector<int>, bool> dp;
+    int dp[100][100][100];
     
     // all permutations of current expression by replacing * with brackets or empty
     bool isBalanced(string &s, int i, int left, int right){
-        if(flag==true){
-            return true;
-        }
         if(i==s.length()){
             if(left==right){
                 return flag = true;
@@ -19,11 +15,8 @@ public:
         if(left < right){
             return false;
         }
-        // if(dp[i][left][right]!=-1){
-        //     return dp[i][left][right];
-        // }
-        if(dp.count({i,left,right})){
-            return dp[{i,left,right}];
+        if(dp[i][left][right]!=-1){
+            return dp[i][left][right];
         }
         bool ans = false;
         // if s[i] == '*', * can be replaced with (, ), or empty
@@ -39,11 +32,11 @@ public:
                 ans = ans || isBalanced(s,i+1,left+1,right);
             }
         }
-        return dp[{i,left,right}] = ans;
+        return dp[i][left][right] = ans;
     }
         
     bool checkValidString(string s) {
-        // memset(dp,-1,sizeof(dp));
+        memset(dp,-1,sizeof(dp));
         bool ans = isBalanced(s,0,0,0);
         return flag;
     }
