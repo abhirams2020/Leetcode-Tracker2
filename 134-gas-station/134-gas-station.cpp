@@ -9,6 +9,8 @@ public:
             // at station i, available fuel is gas[i]. if cost[i]>gas[i] no need to consider that
             if(gas[i]>=cost[i]){
                 q.push(i);
+                // after adding a valid start point, skip all consecutive points which have gas[i]>cost[i]
+                // since i is valid and i to k is valid it means valid starting point could be i only.
                 while(i<n && gas[i]>=cost[i]){
                     i++;
                 }
@@ -17,7 +19,7 @@ public:
                 i++;
             }
         }
-        cout<<q.size()<<"\n";
+        
         while(!q.empty()){
             int curr = q.front();
             q.pop();
