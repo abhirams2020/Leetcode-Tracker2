@@ -52,10 +52,12 @@ public:
             for(int i=0;i<n;i++){
                 int curr_i = q.front();
                 q.pop();
+                // if current index has reached end, return no of jumps
                 if(curr_i >= end){
                     return jumps;
                 }
                 for(int j=nums[curr_i];j>=1;j--){
+                    // if we visit an index inside array, mark it as visited to avoid repetition
                     if(curr_i+j<=nums.size()-1 && visited[curr_i+j]==false){
                         visited[curr_i+j] = true;
                         q.push(curr_i+j);
