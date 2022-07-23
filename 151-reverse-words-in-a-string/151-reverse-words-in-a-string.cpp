@@ -1,7 +1,9 @@
+// USING STRINGSTREAM
 class Solution {
 public:
     string reverseWords(string s) {
-        stringstream ss(s);
+        stringstream ss;
+        ss<<s;
         vector<string> v;
         string str;
         while(ss>>str){
