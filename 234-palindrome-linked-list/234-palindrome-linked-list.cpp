@@ -43,6 +43,7 @@ public:
 
 class Solution {
 public:
+    // reverse LL and return its head
     ListNode* reverseLL(ListNode* head){
         ListNode* prv = NULL, *cur = head, *nxt;
         while(cur){
@@ -54,50 +55,25 @@ public:
         return prv;
     }
     
-    int linkedListLen(ListNode* head){
-        if(head==NULL){
-            return 0;
-        }
-        return 1 + linkedListLen(head->next);
-    }
-    
-    void printLL(ListNode* head){
-        while(head){
-            cout<<head->val<<" ";
-            head = head->next;
-        }
-        cout<<"\n";
-    }
-    
     bool isPalindrome(ListNode* head) {
-        int len = linkedListLen(head);
+        if(!head){
+            return true;
+        }
         // find mid of linked list
         ListNode *slow=head, *fast=head;
-        // if odd size, slow stops at mid. if even size, slow stops at left mid
-        while(fast && fast->next && fast->next->next){
+        // if odd size, slow stops at mid. if even size, slow stops at right mid
+        while(fast && fast->next){
             slow = slow->next;
             fast = fast->next->next;
         }
-        ListNode* mid = slow;
-        ListNode* revhead;
-        // linked list is even length
-        // linked list seperate into start to mid, mid+1 to end for checking palindrome
-        if(len%2==0){
-            revhead = mid->next;
-        }
-        // linked list is odd length
-        // linked list seperate into start to mid, mid to end for checking palindrome
-        else {
-            revhead = mid;
-        }
-        // reverse linked list revhead to end and point revhead to head of reversed list
-        revhead = reverseLL(revhead);
-
-        mid->next = NULL; // imp : head should only go till mid while checking
+        ListNode* midhead = slow;
         
-        // printLL(head);
-        // printLL(revhead);
-        while(revhead && head){
+        // reverse linked list revhead to end and point revhead to head of reversed list
+        ListNode* revhead = reverseLL(midhead);
+        
+        // move LL till head!=revhead for odd length LL
+        // move LL till revhead!=NULL for even length LL
+        while(head && revhead && head!=revhead){
             if(revhead->val != head->val){
                 return false;
             }
@@ -105,6 +81,6 @@ public:
             head = head->next;
         }
         
-        return (head==NULL) && (revhead==NULL);
+        return true;
     }
 };
