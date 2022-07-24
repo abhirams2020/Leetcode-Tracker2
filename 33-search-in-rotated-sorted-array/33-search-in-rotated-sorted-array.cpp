@@ -4,10 +4,8 @@ public:
         // check if l to m or m to r is sorted.
         int n = nums.size();
         int l = 0, r = n-1;
-        int count = 0;
         while(l<=r){
             int m = l + (r - l) / 2;
-            // cout<<l<<" "<<r<<"\n";
             // if target found, return index of target
             if(nums[m]==target){
                 return m;
@@ -17,7 +15,9 @@ public:
                 return -1;
             }
             // left part is sorted, check if target is there
-            if(nums[l]<=nums[m]){
+            // NOTE nums[l] <= nums[m] required for cases where no of elements == 2.
+            // in that case l==m and we need to move to right
+            if(nums[l] <= nums[m]){
                 if(target>=nums[l] && target<nums[m]){
                     r = m - 1;
                 }
@@ -34,7 +34,6 @@ public:
                     r = m - 1;
                 }
             }
-            count++;
         }
         return -1;
     }
