@@ -1,9 +1,10 @@
 class Solution {
 public:
     vector<string> ans;
+    
     // open=no of open remaining to be added, close=no of close remaining
     void solve(int open, int close, string& str){
-        if(close==0){
+        if(open==0 && close==0){
             ans.push_back(str);
             return;
         }
