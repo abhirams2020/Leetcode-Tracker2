@@ -7,16 +7,16 @@ public:
         
     }
     
+    // push element to min stack when curr val <= curr min
     void push(int val) {
-        cout<<"Push : "<<val<<"\n";
         st.push(val);
         if(minVal.empty() || val <= minVal.top()){
             minVal.push(val);
         }
     }
-    
+
+    // pop element from min stack when stack top value == curr min value
     void pop() {
-        cout<<"Pop : "<<st.top()<<"\n";
         if(!minVal.empty() && minVal.top() == st.top()){
             minVal.pop();
         }
@@ -24,12 +24,10 @@ public:
     }
     
     int top() {
-        cout<<"Top : "<<st.top()<<"\n";
         return st.top();
     }
     
     int getMin() {
-        cout<<"Min : "<<minVal.top()<<"\n";
         return minVal.top();
     }
 };
