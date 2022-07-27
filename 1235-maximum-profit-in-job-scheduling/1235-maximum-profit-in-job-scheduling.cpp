@@ -24,10 +24,10 @@ public:
         }
         sort(jobs.begin(), jobs.end());
         int maxProfit = solve(jobs,0,n,0);
-        for(auto i:dp){
-            cout<<i<<"\t";
-        }
-        cout<<"\n";
+        // for(auto i:dp){
+        //     cout<<i<<"\t";
+        // }
+        // cout<<"\n";
         return maxProfit;
     }
 };
