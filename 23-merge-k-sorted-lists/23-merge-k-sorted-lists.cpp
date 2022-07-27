@@ -10,13 +10,13 @@
  */
 class Solution {
 public:
+    // function to merge 2 lists
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2){
         if(l1==NULL)
             return l2;
         if(l2==NULL)
             return l1;
         ListNode* dummy = new ListNode();
-        dummy->val = INT_MIN;
         ListNode* curr = dummy;
         while(l1 && l2){
             if(l1->val < l2->val){
@@ -38,10 +38,12 @@ public:
         return dummy->next;
     }
     
+    // similar to mergesort fn by divide and conquer method
     ListNode* mergeLists(vector<ListNode*>& lists, int lo, int hi){
         if(lo>hi){
             return NULL;
         }
+        // if lo==hi, no need to merge same list. so return the list
         if(lo==hi){
             return lists[lo];
         }
