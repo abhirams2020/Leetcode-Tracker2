@@ -49,22 +49,20 @@ public:
     string countAndSay(int n) {
         if(n == 1)
             return "1";
-        else {
-            string x = countAndSay(n-1);                    // recursion
-            string res = "";                                // result will be appended in this
-            char temp = x[0];                               // storing first character of the string
-            int count = 0;
-            for(int i = 0; i < x.size(); i++) {
-                if(temp == x[i])                            // checking the number of times the will appear continuously
-                    count++;
-                else {
-                    res += to_string(count) + temp;         // when another number arrives, append the previous number
-                    temp = x[i];                            // update temp
-                    count = 1;                              // count the occurence of the new number
-                }
+        string x = countAndSay(n-1);
+        string res = "";
+        char temp = x[0];
+        int count = 0;
+        for(int i = 0; i < x.size(); i++) {
+            if(temp == x[i])
+                count++;
+            else {
+                res = res + to_string(count) + temp;
+                temp = x[i];
+                count = 1;
             }
-            res += to_string(count) + temp;                 // to append the last number
-            return res;
-         }
+        }
+        res = res + to_string(count) + temp;
+        return res;
     }
 };
