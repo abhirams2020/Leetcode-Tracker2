@@ -25,6 +25,7 @@ public:
         return ans;
     }
 };
+*/
 
 // FINDING EACH WORD AND ADD TO VECTOR
 class Solution {
@@ -46,19 +47,17 @@ public:
             }
             words.push_back(word);
         }
-        // reverse order of words
-        reverse(words.begin(), words.end());
         // add reverse words to ans with space in between
         string ans = "";
-        for(int i=0;i<words.size();i++){
+        for(int i=words.size()-1;i>=0;i--){
             ans += words[i] + " ";
         }
         ans.pop_back();
         return ans;
     }
 };
-*/
 
+/*
 // IN PLACE SOLUTION O(1) SPACE
 class Solution {
 public:
@@ -75,16 +74,15 @@ public:
             }
             // find ending point of word by moving to next space position
             r = l;
-            string word = "";
             while(r<s.length() && s[r]!=' '){
-                word += s[r];
                 r++;
             }
             // important step : add the current word before the ans.
-            ans = word + " " + ans;
+            ans = s.substr(l,r-l) + " " + ans;
             l = r;
         }
         ans.pop_back();
         return ans;
     }
 };
+*/
