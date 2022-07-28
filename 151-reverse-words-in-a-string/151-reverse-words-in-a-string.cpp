@@ -75,11 +75,13 @@ public:
             }
             // find ending point of word by moving to next space position
             r = l;
+            string word = "";
             while(r<s.length() && s[r]!=' '){
+                word += s[r];
                 r++;
             }
             // important step : add the current word before the ans.
-            ans = s.substr(l,r-l) + " " + ans;
+            ans = word + " " + ans;
             l = r;
         }
         ans.pop_back();
