@@ -75,15 +75,15 @@ public:
             }
             // find ending point of word by moving to next space position
             r = l;
-            string word;
             
+            string word = "";
+            // add chars to word till space is encountered or reach end of s.
             while(r<s.length() && s[r]!=' '){
                 word.push_back(s[r]);
                 r++;
             }
-            // word index range is l to r-1
+            // important step : add the current word before the ans.
             ans = word + " " + ans;
-            
             l = r;
         }
         ans.pop_back();
