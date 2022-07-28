@@ -26,7 +26,11 @@ public:
 // USING RECURSION FN(N) = COUNT(FN(N-1))
 class Solution {
 public:
-    string solve(string s){
+    string countAndSay(int n) {
+        if(n==1){
+            return "1";
+        }
+        string s = countAndSay(n-1);
         string ans;
         for(int i=0;i<s.length();i++){
             int count = 1;
@@ -37,12 +41,5 @@ public:
             ans = ans + to_string(count) + s[i];
         }
         return ans;
-    }
-    
-    string countAndSay(int n) {
-        if(n==1){
-            return "1";
-        }
-        return solve(countAndSay(n-1));
     }
 };
