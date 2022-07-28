@@ -25,7 +25,6 @@ public:
         return ans;
     }
 };
-*/
 
 // FINDING EACH WORD AND ADD TO VECTOR
 class Solution {
@@ -53,6 +52,36 @@ public:
         string ans = "";
         for(int i=0;i<words.size();i++){
             ans += words[i] + " ";
+        }
+        ans.pop_back();
+        return ans;
+    }
+};
+*/
+
+// IN PLACE SOLUTION O(1) SPACE
+class Solution {
+public:
+    string reverseWords(string s) {
+        string ans;
+        int l=0,r=0;
+        while(l<s.length()){
+            // find starting point of word by moving to next character position
+            while(l<s.length() && s[l]==' '){
+                l++;
+            }
+            if(l==s.length()){
+                break;
+            }
+            // find ending point of word by moving to next space position
+            r = l;
+            while(r<s.length() && s[r]!=' '){
+                r++;
+            }
+            // word index range is l to r-1
+            ans = s.substr(l, r-l) + " " + ans;
+            
+            l = r;
         }
         ans.pop_back();
         return ans;
