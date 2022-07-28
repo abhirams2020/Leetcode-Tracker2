@@ -21,7 +21,6 @@ public:
         return s;
     }
 };
-*/
 
 // USING RECURSION FN(N) = COUNT(FN(N-1))
 class Solution {
@@ -41,5 +40,31 @@ public:
             ans = ans + to_string(count) + s[i];
         }
         return ans;
+    }
+};
+*/
+
+class Solution {
+public:
+    string countAndSay(int n) {
+        if(n == 1)
+            return "1";
+        else {
+            string x = countAndSay(n-1);                    // recursion
+            string res = "";                                // result will be appended in this
+            char temp = x[0];                               // storing first character of the string
+            int count = 0;
+            for(int i = 0; i < x.size(); i++) {
+                if(temp == x[i])                            // checking the number of times the will appear continuously
+                    count++;
+                else {
+                    res += to_string(count) + temp;         // when another number arrives, append the previous number
+                    temp = x[i];                            // update temp
+                    count = 1;                              // count the occurence of the new number
+                }
+            }
+            res += to_string(count) + temp;                 // to append the last number
+            return res;
+         }
     }
 };
