@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // ROLLING HASH USING DEQUE. ADD TO RIGHT AND REMOVE FROM LEFT.
     int strStr(string haystack, string needle) {
         if(needle.length()==0){
             return 0;
