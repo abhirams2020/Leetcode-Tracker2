@@ -75,11 +75,14 @@ public:
             }
             // find ending point of word by moving to next space position
             r = l;
+            string word;
+            
             while(r<s.length() && s[r]!=' '){
+                word.push_back(s[r]);
                 r++;
             }
             // word index range is l to r-1
-            ans = s.substr(l, r-l) + " " + ans;
+            ans = word + " " + ans;
             
             l = r;
         }
