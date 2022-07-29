@@ -1,30 +1,27 @@
-class Solution {
-public:
-    int dp[201][201];
-    vector<vector<int>> dir = {{0,1}, {1,0}};
-    int INF = 1e6;
-    
-    int dfs(vector<vector<int>> &grid, int i, int j, int m, int n){
-        if(i==m-1 && j==n-1) 
-            return grid[i][j];
-        if(i>=m || j>=n){
-            return INF;
-        }
-        if(dp[i][j]!=-1){
-            return dp[i][j];
-        }
-        int minVal = INF;
-        for(auto it:dir){
-            int new_i = i + it[0], new_j = j + it[1];
-            minVal = min(minVal, dfs(grid,new_i,new_j,m,n));
-        }
-        return dp[i][j] = grid[i][j] + minVal;
+class Solution
+{
+    int rec(int r, int c, int& m, int& n, vector<vector<int>>& grid, vector<vector<int>>& dp)
+    {
+        // Base Cases
+        if(r==m-1 && c==n-1)
+            return grid[r][c];
+        if(r >= m || c >= n)
+            return 1000;  // Random big number
+        if(dp[r][c] != -1)
+            return dp[r][c];
+        
+        int down = grid[r][c] + rec(r+1,c,m,n,grid,dp);
+        int right = grid[r][c] + rec(r,c+1,m,n,grid,dp);
+        
+        
+        return dp[r][c] = min(down,right);
     }
-    
-    int minPathSum(vector<vector<int>>& grid) {
-        memset(dp,-1,sizeof(dp));
+public:
+    int minPathSum(vector<vector<int>>& grid)
+    {
         int m = grid.size(), n = grid[0].size();
-        int minPath = dfs(grid,0,0,m,n);
-        return minPath;
+        vector<vector<int>> dp(m,vector<int>(n,-1));
+        int ans = rec(0,0,m,n,grid,dp);
+        return ans;
     }
 };
