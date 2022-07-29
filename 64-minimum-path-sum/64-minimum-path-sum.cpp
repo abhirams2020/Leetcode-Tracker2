@@ -1,44 +1,78 @@
-class Solution {
-public:
-    int dp[201][201];
-    vector<vector<bool>> visited;
-    vector<vector<int>> dir = {{0,1}, {1,0}};
-    int INF = 1e6;
+// class Solution {
+// public:
+//     int dp[201][201];
+//     vector<vector<bool>> visited;
+//     vector<vector<int>> dir = {{0,1}, {1,0}};
+//     int INF = 1e6;
     
-    bool isValid(int i, int j, int m, int n){
-        if(i<0 || j<0 || i>=m || j>=n){
-            return false;
-        }
-        if(visited[i][j]==true){
-            return false;
-        }
-        return true;
-    }
+//     bool isValid(int i, int j, int m, int n){
+//         if(i<0 || j<0 || i>=m || j>=n){
+//             return false;
+//         }
+//         if(visited[i][j]==true){
+//             return false;
+//         }
+//         return true;
+//     }
     
-    int dfs(vector<vector<int>> &grid, int i, int j, int m, int n){
+//     int dfs(vector<vector<int>> &grid, int i, int j, int m, int n){
+//         if(i==m-1 && j==n-1){
+//             return grid[i][j];
+//         }
+//         if(dp[i][j]!=-1){
+//             return dp[i][j];
+//         }
+//         visited[i][j] = true;
+//         int minVal = INF;
+//         for(auto it:dir){
+//             int new_i = i + it[0], new_j = j + it[1];
+//             if(isValid(new_i,new_j,m,n)){
+//                 minVal = min(minVal, grid[i][j] + dfs(grid,new_i,new_j,m,n));
+//             }
+//         }
+//         visited[i][j] = false;
+//         return dp[i][j] = minVal;
+//     }
+    
+//     int minPathSum(vector<vector<int>>& grid) {
+//         memset(dp,-1,sizeof(dp));
+//         int m = grid.size(), n = grid[0].size();
+//         visited.resize(m+1, vector<bool> (n+1,false));
+//         int minPath = dfs(grid,0,0,m,n);
+//         return minPath;
+//     }
+// };
+
+class Solution 
+{
+  public:
+    int minPathSumHelper(vector<vector<int>> &grid,vector<vector<int>> &dp,int m, int n, int i, int j){
+        //base case 
+        
         if(i==m-1 && j==n-1){
             return grid[i][j];
+        }
+        if(i>=m || j>=n){
+            return INT_MAX; 
         }
         if(dp[i][j]!=-1){
             return dp[i][j];
         }
-        visited[i][j] = true;
-        int minVal = INF;
-        for(auto it:dir){
-            int new_i = i + it[0], new_j = j + it[1];
-            if(isValid(new_i,new_j,m,n)){
-                minVal = min(minVal, grid[i][j] + dfs(grid,new_i,new_j,m,n));
-            }
-        }
-        visited[i][j] = false;
-        return dp[i][j] = minVal;
+        
+        //recusrive call
+        int x = minPathSumHelper(grid,dp,m,n,i+1,j);
+        int y = minPathSumHelper(grid,dp,m,n,i,j+1);
+        
+        //small calculation for recursion
+        int ans = min(x,y) + grid[i][j];
+        dp[i][j] = ans;
+        return ans;
     }
-    
-    int minPathSum(vector<vector<int>>& grid) {
-        memset(dp,-1,sizeof(dp));
-        int m = grid.size(), n = grid[0].size();
-        visited.resize(m+1, vector<bool> (n+1,false));
-        int minPath = dfs(grid,0,0,m,n);
-        return minPath;
+    int minPathSum(vector<vector<int>> &grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<vector<int>> dp(m, vector<int>(n,-1));
+
+       return minPathSumHelper(grid,dp,m,n,0,0);
     }
 };
