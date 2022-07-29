@@ -21,7 +21,7 @@ public:
     }
     
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        // mp[Dist from root] = {Node address, level}
+        // mp[Dist from root] = {Node value, level}
         map<int,vector<pair<int,int>>> mp;
         int level = 0;
         // q = {Node address, dist from root}
@@ -35,7 +35,9 @@ public:
                 q.pop();
                 TreeNode* curr = it.first;
                 int distFromRoot = it.second;
+                // add current {val,level} pair to mp[distFromRoot]
                 mp[distFromRoot].push_back({curr->val,level});
+                // left -> distFromRoot-1. right -> distFromRoot+1
                 if(curr->left){
                     q.push({curr->left,distFromRoot-1});
                 }
@@ -49,8 +51,10 @@ public:
         vector<vector<int>> ans;
         
         for(auto [k,v]:mp){
+            // sort the {node value, horizontal level} for each vertical level
             sort(v.begin(),v.end(),cmp);
             vector<int> temp;
+            // add sorted node values of current vertical level to temp
             for(auto i:v){
                 temp.push_back(i.first);
             }
