@@ -11,35 +11,36 @@
  */
 class Solution {
 public:
-    using pii = pair<int,int>;
-    
-    static bool cmp(pii &a, pii &b){
-        if(a.first == b.first){
+    static bool cmp(pair<int,int> &a, pair<int,int> &b){
+        // if not same level sort by level
+        if(a.second != b.second){
             return a.second < b.second;
         }
+        // if same level sort by value
         return a.first < b.first;
     }
     
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        // dist[vertical] level gives {horizontal level, value of node}
-        // required since if same horizontal and vertical level, sort by value
-        map<int,vector<pair<int,int>>> dist;
+        // mp[Dist from root] = {Node address, level}
+        map<int,vector<pair<int,int>>> mp;
+        int level = 0;
+        // q = {Node address, dist from root}
         queue<pair<TreeNode*,int>> q;
         q.push({root,0});
-        int level = 0;
+        
         while(!q.empty()){
             int n = q.size();
             for(int i=0;i<n;i++){
                 auto it = q.front();
+                q.pop();
                 TreeNode* curr = it.first;
                 int distFromRoot = it.second;
-                dist[distFromRoot].push_back({level,curr->val});
-                q.pop();
+                mp[distFromRoot].push_back({curr->val,level});
                 if(curr->left){
-                    q.push({curr->left, distFromRoot-1});
+                    q.push({curr->left,distFromRoot-1});
                 }
                 if(curr->right){
-                    q.push({curr->right, distFromRoot+1});
+                    q.push({curr->right,distFromRoot+1});
                 }
             }
             level++;
@@ -47,11 +48,11 @@ public:
         
         vector<vector<int>> ans;
         
-        for(auto [k,v]:dist){
-            sort(v.begin(), v.end(), cmp);
+        for(auto [k,v]:mp){
+            sort(v.begin(),v.end(),cmp);
             vector<int> temp;
             for(auto i:v){
-                temp.push_back(i.second);
+                temp.push_back(i.first);
             }
             ans.push_back(temp);
         }
