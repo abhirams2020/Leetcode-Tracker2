@@ -12,8 +12,7 @@ public:
         if(dp[i][j]!=-1){
             return dp[i][j];
         }
-        int minVal = INF;
-        minVal = min(dfs(grid,i+1,j,m,n), dfs(grid,i,j+1,m,n));
+        int minVal = min(dfs(grid,i+1,j,m,n), dfs(grid,i,j+1,m,n));
         return dp[i][j] = grid[i][j] + minVal;
     }
     
