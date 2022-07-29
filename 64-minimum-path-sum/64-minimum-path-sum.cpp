@@ -16,9 +16,9 @@ public:
         int minVal = INF;
         for(auto it:dir){
             int new_i = i + it[0], new_j = j + it[1];
-            minVal = min(minVal, grid[i][j] + dfs(grid,new_i,new_j,m,n));
+            minVal = min(minVal, dfs(grid,new_i,new_j,m,n));
         }
-        return dp[i][j] = minVal;
+        return dp[i][j] = grid[i][j] + minVal;
     }
     
     int minPathSum(vector<vector<int>>& grid) {
