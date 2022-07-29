@@ -13,6 +13,7 @@ class Solution {
 public:
     vector<vector<int>> validPaths;
     
+    // find leaf node using backtracking and dfs
     void dfs(TreeNode* root, vector<int> &path){
         if(root==NULL){
             return;
@@ -30,6 +31,7 @@ public:
         vector<int> path;
         dfs(root, path);
         vector<string> ans;
+        // convert valid paths to given format and return
         for(auto v:validPaths){
             string currPath;
             for(int i=0;i<v.size();i++){
