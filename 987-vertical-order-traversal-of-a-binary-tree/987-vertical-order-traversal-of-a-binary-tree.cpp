@@ -11,7 +11,9 @@
  */
 class Solution {
 public:
-    static bool cmp(pair<int,int> &a, pair<int,int> &b){
+    using pii = pair<int,int>;
+    
+    static bool cmp(pii &a, pii &b){
         // if not same level sort by level
         if(a.second != b.second){
             return a.second < b.second;
@@ -22,7 +24,7 @@ public:
     
     vector<vector<int>> verticalTraversal(TreeNode* root) {
         // mp[Dist from root] = {Node value, level}
-        map<int,vector<pair<int,int>>> mp;
+        map<int,vector<pii>> mp;
         int level = 0;
         // q = {Node address, dist from root}
         queue<pair<TreeNode*,int>> q;
