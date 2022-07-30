@@ -11,6 +11,7 @@ public:
             if(truckSize==0){
                 break;
             }
+            // if remaining capacity of truck < current no of boxes, add boxes till remaining capacity
             int boxCount = min(it[0], truckSize);
             maxVal += it[1] * boxCount;
             truckSize -= boxCount;
