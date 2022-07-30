@@ -1,3 +1,5 @@
+/*
+// USING PREFIX ARRAY AND STORING ITS REMAINDERS IN A MAP
 class Solution {
 public:
     int subarraysDivByK(vector<int>& nums, int k) {
@@ -21,6 +23,40 @@ public:
             if(remainder < 0){
                 remainder += k;
             }
+            // for every remainder, check remainders with same val that was found earlier
+            // prevSameRemainderIndex+1 to RemainderIndex gives subarray divisible by k
+            if(remCount.count(remainder)){
+                count += remCount[remainder];
+            }
+            remCount[remainder]++;
+        }
+        return count;
+    }
+};
+*/
+
+// USING SUM VARIABLE AND STORING ITS REMAINDERS IN A MAP
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+        int n = nums.size();
+        int currSum = 0;
+        // find remainder of prefix sums and check for no of subarrays with same remainder if rem!=0
+        // if remainder == 0, it means prefix sum is divisible by k
+        unordered_map<int,int> remCount;
+        // increment count of starting 0 in presum
+        remCount[0]++;
+        int count = 0;
+        
+        for(int i=0;i<n;i++){
+            currSum += nums[i];
+            int remainder = currSum%k;
+            // eg. remainder of -2 should be 3 instead of -2.
+            if(remainder < 0){
+                remainder += k;
+            }
+            // for every remainder, check remainders with same val that was found earlier
+            // prevSameRemainderIndex+1 to RemainderIndex gives subarray divisible by k
             if(remCount.count(remainder)){
                 count += remCount[remainder];
             }
