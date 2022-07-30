@@ -8,6 +8,9 @@ public:
         sort(boxTypes.begin(), boxTypes.end(), cmp);
         int maxVal = 0;
         for(auto it:boxTypes){
+            if(truckSize==0){
+                break;
+            }
             int boxCount = min(it[0], truckSize);
             maxVal += it[1] * boxCount;
             truckSize -= boxCount;
