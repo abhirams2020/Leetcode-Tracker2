@@ -3,6 +3,7 @@ public:
     int numPairsDivisibleBy60(vector<int>& time) {
         unordered_map<int,int> remCount;
         int count = 0;
+        // similar to two sum but here remainders should add to 60
         for(int i=0;i<time.size();i++){
             int remainder = time[i]%60;
             if(remainder==0){
