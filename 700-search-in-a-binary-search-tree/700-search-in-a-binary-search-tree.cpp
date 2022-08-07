@@ -15,16 +15,14 @@ public:
         if(root==NULL){
             return NULL;
         }
-        if(root->val == val){
+        if(val == root->val){
             return root;
         }
-        TreeNode* left = searchBST(root->left,val);
-        TreeNode* right = searchBST(root->right,val);
-        if(left){
-            return left;
+        else if(val < root->val){
+            return searchBST(root->left,val);
         }
-        if(right){
-            return right;
+        else if(val > root->val){
+            return searchBST(root->right,val);
         }
         return NULL;
     }
