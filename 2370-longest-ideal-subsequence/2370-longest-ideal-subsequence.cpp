@@ -2,7 +2,7 @@ class Solution {
 public:
     int dp[100004][128];
     
-    int findLongest(string &s, int &k, int i, int prev){
+    int findLongest(string &s, int k, int i, int prev){
         if(i==s.length()){
             return 0;
         }
