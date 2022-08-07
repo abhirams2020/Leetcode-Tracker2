@@ -1,3 +1,4 @@
+/*
 // MEMOIZATION DP. O(5*N) TIME. O(26*N) SPACE.
 class Solution {
 public:
@@ -30,5 +31,32 @@ public:
         mp['u'] = {'a'};
         memset(dp,-1,sizeof(dp));
         return solve(n, 'n');
+    }
+};
+*/
+
+// ITERATIVE METHOD. O(N) TIME. O(1) SPACE.
+class Solution {
+public:
+    
+    int countVowelPermutation(int n) {
+        long long mod = 1e9+7;
+        
+        vector<long long> dp(128,1);
+        
+        for(int i=1;i<n;i++){
+            long long   prev_a = dp['a'], 
+                        prev_e = dp['e'], 
+                        prev_i = dp['i'], 
+                        prev_o = dp['o'], 
+                        prev_u = dp['u'];
+            // find new count from previous counts
+            dp['a'] = prev_e % mod;
+            dp['e'] = (prev_a + prev_i) % mod;
+            dp['i'] = (prev_a + prev_e + prev_o + prev_u) % mod;
+            dp['o'] = (prev_i + prev_u) % mod;
+            dp['u'] = prev_a % mod;
+        }
+        return (dp['a'] + dp['e'] + dp['i'] + dp['o'] + dp['u']) % mod;
     }
 };
