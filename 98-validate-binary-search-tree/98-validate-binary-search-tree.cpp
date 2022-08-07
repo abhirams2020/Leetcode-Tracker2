@@ -11,16 +11,16 @@
  */
 class Solution {
 public:
-    bool check(TreeNode* root, long long minVal, long long maxVal){
+    bool check(TreeNode* root, long minVal, long maxVal){
         if(root==NULL){
             return true;
         }
-        // minVal and maxVal are min and max possible values possible for root if it is a BST
-        if(root->val>maxVal || root->val<minVal){
+        // if root is a BST, its values should be between minVal and maxVal not including it
+        if(root->val<=minVal || root->val>=maxVal){
             return false;
         }
         // check for the subtrees. for left/right subtree, all nodes should be lesser/greater than root
-        return check(root->left, minVal, (long long)root->val-1) && check(root->right, (long long)root->val+1, maxVal);
+        return check(root->left, minVal, root->val) && check(root->right, root->val, maxVal);
     }
     
     bool isValidBST(TreeNode* root) {
