@@ -18,9 +18,11 @@ public:
         if(root1==NULL || root2==NULL){
             return false;
         }
+        // check if current nodes are equal
         if(root1->val != root2->val){
             return false;
         }
+        // check if opposite side subtrees are mirror images
         return check(root1->left,root2->right) && check(root1->right, root2->left);
     }
     
