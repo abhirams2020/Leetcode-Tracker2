@@ -13,6 +13,8 @@ class Solution {
 public:
     // function to find first index of value larger than key
     int findFirstLargeIndex(vector<int> &nums, int key, int l, int r){
+        // if all elements greater than key, return l as first index
+        // if all elements less than key, return r+1 as first index
         if(key < nums[l]){
             return l;
         }
@@ -21,7 +23,7 @@ public:
         }
         while(r-l>1){
             int mid = l+(r-l)/2;
-            if(nums[mid]<key){
+            if(nums[mid]<=key){
                 l = mid+1;
             }
             else {
@@ -42,7 +44,7 @@ public:
             return new TreeNode(preorder[l]);
         }
         // first element in preorder is taken as root. 
-        // all smaller elements after it is left subtree. 
+        // all smaller or equal elements after it is left subtree. 
         // all greater elements after it is right subtree
         // find index of first number greater than preorder[l]
         int k = findFirstLargeIndex(preorder, preorder[l], l+1, r);
