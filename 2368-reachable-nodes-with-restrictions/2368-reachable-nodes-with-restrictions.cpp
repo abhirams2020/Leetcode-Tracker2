@@ -32,7 +32,7 @@ public:
 //         }
 //         return count;
 //     }
-    void DFS(int &n, unordered_map<int,vector<int>> &graph, vector<int> &visited, int sv, int &ans)
+    void DFS(int &n, vector<vector<int>> &graph, vector<int> &visited, int sv, int &ans)
     {
         visited[sv] = 1;
         ans++;
@@ -49,7 +49,7 @@ public:
 
     int reachableNodes(int n, vector<vector<int>> &edges, vector<int> &restricted)
     {
-        unordered_map<int,vector<int>> graph;
+        vector<vector<int>> graph(n);
         vector<int> visited(n, 0);
 
         for (auto &it : restricted)
