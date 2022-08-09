@@ -11,16 +11,17 @@
  */
 class BSTIterator {
 public:
-    int idx=-1;
+    // nextIdx stores index of next pointer
+    int nextIdx=0;
     
-    vector<TreeNode*> inorderArr;
+    vector<int> inorderArr;
     
     void inorder(TreeNode* root){
         if(root==NULL){
             return;
         }
         inorder(root->left);
-        inorderArr.push_back(root);
+        inorderArr.push_back(root->val);
         inorder(root->right);
     }
     
@@ -29,12 +30,16 @@ public:
     }
     
     int next() {
-        idx++;
-        return inorderArr[idx]->val;
+        if(nextIdx == inorderArr.size()){
+            return -1;
+        }
+        int currVal = inorderArr[nextIdx];
+        nextIdx++;
+        return currVal;
     }
     
     bool hasNext() {
-        return idx+1 < inorderArr.size();
+        return nextIdx < inorderArr.size();
     }
 };
 
