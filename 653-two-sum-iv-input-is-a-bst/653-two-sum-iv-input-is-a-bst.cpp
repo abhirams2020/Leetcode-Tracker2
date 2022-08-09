@@ -23,6 +23,7 @@ public:
         int curr = root->val;
         if(s.count(target-curr)){
             flag = true;
+            return;
         }
         s.insert(curr);
         
