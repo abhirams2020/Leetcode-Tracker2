@@ -9,6 +9,8 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+/*
+// USING FLATTEN FUNCTION RECURSIVELY
 class Solution {
 public:
     void flatten(TreeNode* root) {
@@ -34,5 +36,31 @@ public:
         // repeat the same for subtrees of current tree
         flatten(root->left);
         flatten(root->right);
+    }
+};
+*/
+
+// USING REVERSE POSTORDER AND MAINTAINING A GLOBAL PREV POINTER
+// AFTER FINDING THE LAST IN PREORDER, WE NEED TO MAKE CURR->NEXT AS PREV AND CURR->RIGHT AS NULL.
+class Solution {
+public:
+    TreeNode* prev = NULL;
+    
+    void revPostorder(TreeNode* root){
+        if(root==NULL){
+            return;
+        }
+        revPostorder(root->right);
+        revPostorder(root->left);
+        
+        // make curr->right as prev and curr-left as NULL
+        root->left = NULL;
+        root->right = prev;
+        // update prev
+        prev = root;
+    }
+    
+    void flatten(TreeNode* root) {
+        revPostorder(root);
     }
 };
