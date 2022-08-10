@@ -57,76 +57,72 @@ public:
         return max({ans, maxSumBST(root->left), maxSumBST(root->right)});
     }
 };
-*/
 
-// class Solution {
-// public:
-//     int maxSum = 0;
-//     // {smallest_num, largest_num, curr_sum} of a tree
-//     vector<int> traverse(TreeNode* root) {
-//         if (!root)
-//             return {INT_MAX, INT_MIN, 0};
-//         vector<int> left = traverse(root->left);
-//         vector<int> right = traverse(root->right);
-// 		// check if a tree is BST
-//         if (left.empty() || right.empty() || root->val <= left[1] || root->val >= right[0])
-//             return {};
-// 		// if BST, update ans
-//         int currSum = root->val + left[2] + right[2];
-//         maxSum = max(maxSum, currSum);
-//         // min(left[0],curr) when we visit leaf node we return inf as minval
-//         return {min(left[0], root->val), max(right[1], root->val), currSum};
-//     }
-//     int maxSumBST(TreeNode* root) {
-//         int ans = 0;
-//         traverse(root);
-//         return maxSum;
-//     }
-// };
-
-int ans;
-class prop{
-public:
-    bool bst;       //to check if tree is bst
-    int ma;         //max value in a tree
-    int mi;         //min value in an tree
-    int ms;         //current maximum sum
-    prop(){
-        bst=true;
-        ma=INT_MIN;
-        mi=INT_MAX;
-        ms=0;
-    }
-};
+// RETURN MINLIMIT, MAXLIMIT, SUM AS VECTOR. RETURN {} IF NOT BST
 class Solution {
 public:
-    prop calcSum(TreeNode* root){
-        if (root == NULL){
-            return prop();
-        }
-        prop p;
-        prop pl = calcSum(root->left);                        //recursive call for left sub-tree
-        prop pr = calcSum(root->right);                       //recursive call for right sub-tree
-		
-		//if sub-tree including this node is bst
-        if ( pl.bst==true && pr.bst==true && root->val>pl.ma && root->val<pr.mi ){
-            p.bst = true;                                                      //current tree is a bst
-            p.ms = pl.ms + pr.ms + root->val;          
-            p.mi  = min(root->val, pl.mi);
-            p.ma = max(root->val, pr.ma);
-        }
-		//if current tree is not a bst
-        else {
-            p.bst=false;
-            p.ms=max(pl.ms, pr.ms);
-        }
-		
-        ans=max(ans, p.ms);
-        return p;
+    int maxSum = 0;
+    // {smallest_num, largest_num, curr_sum} of a tree
+    vector<int> traverse(TreeNode* root) {
+        if (!root)
+            return {INT_MAX, INT_MIN, 0};
+        vector<int> left = traverse(root->left);
+        vector<int> right = traverse(root->right);
+		// check if a tree is BST
+        if (left.empty() || right.empty() || root->val <= left[1] || root->val >= right[0])
+            return {};
+		// if BST, update ans
+        int currSum = root->val + left[2] + right[2];
+        maxSum = max(maxSum, currSum);
+        // min(left[0],curr) when we visit leaf node we return inf as minval
+        return {min(left[0], root->val), max(right[1], root->val), currSum};
     }
-    int maxSumBST(TreeNode* root){
-        ans = 0;
-        calcSum(root);
-        return ans;
+    int maxSumBST(TreeNode* root) {
+        int ans = 0;
+        traverse(root);
+        return maxSum;
+    }
+};
+*/
+
+// USING CLASS AS RETURN TYPE TO REDUCE MEMORY USAGE
+class DataNode{
+public:
+    int minVal;
+    int maxVal;
+    int sum;
+    bool isBST;
+};
+
+class Solution {
+public:
+    // 0 is min possible value. if tree sum is -ve NULL tree is returned with sum = 0
+    int maxSum = 0;
+    
+    DataNode solve(TreeNode* root)
+    {
+        if(!root){
+            // return INT_MIN as maxVal so that when parent checks right.minval < root->val it is true
+            return {INT_MAX, INT_MIN, 0, true};
+        }
+        
+        DataNode left = solve(root->left);
+        DataNode right = solve(root->right);
+        
+        int sum = root->val + left.sum + right.sum;
+        
+        bool isBST = false;
+        
+        if(left.isBST && right.isBST && left.maxVal < root->val && right.minVal > root->val) {   
+            isBST = true;
+            maxSum = max(maxSum, sum);
+        }
+        // return minval as min(root->val, left.minval) because for leaf node, left.minval will be int_max
+        return {min(root->val, left.minVal), max(root->val, right.maxVal), sum, isBST};
+    }
+    
+    int maxSumBST(TreeNode* root) {
+        solve(root);
+        return maxSum;
     }
 };
