@@ -9,6 +9,9 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+/*
+// USING DP FOR CHECK AND SUM FUNCTION
 class Solution {
 public:
     map<pair<TreeNode*,pair<int,int>>, int> checkDp;
@@ -52,5 +55,31 @@ public:
             ans = getSumBst(root);
         }
         return max({ans, maxSumBST(root->left), maxSumBST(root->right)});
+    }
+};
+*/
+
+class Solution {
+public:
+    int maxSum = 0;
+    // {smallest_num, largest_num, curr_sum} of a tree
+    vector<int> traverse(TreeNode* root) {
+        if (!root)
+            return {INT_MAX, INT_MIN, 0};
+        vector<int> left = traverse(root->left);
+        vector<int> right = traverse(root->right);
+		// check if a tree is BST
+        if (left.empty() || right.empty() || root->val <= left[1] || root->val >= right[0])
+            return {};
+		// if BST, update ans
+        int currSum = root->val + left[2] + right[2];
+        maxSum = max(maxSum, currSum);
+        // min(left[0],curr) when we visit leaf node we return inf as minval
+        return {min(left[0], root->val), max(right[1], root->val), currSum};
+    }
+    int maxSumBST(TreeNode* root) {
+        int ans = 0;
+        traverse(root);
+        return maxSum;
     }
 };
