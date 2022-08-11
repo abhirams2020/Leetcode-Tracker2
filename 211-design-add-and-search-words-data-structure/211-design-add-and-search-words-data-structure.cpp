@@ -3,10 +3,10 @@ class TrieNode {
 public:
     bool is_word;
     // map stores next node of current characters
-    vector<TrieNode*> children;
+    TrieNode* children[26];
     TrieNode() {
         is_word = false;
-        children.resize(26,NULL);
+        memset(children,NULL,sizeof(children));
     }
 };
 
