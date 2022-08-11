@@ -15,9 +15,11 @@ public:
         root = new TrieNode();
     }
     
+    // for inserting a word, add a letter at current trienode and move to next trienode
+    // after adding all letters, mark last trienode as isWord = true
     void insert(string word) {
         TrieNode* curr = root;
-        for(auto ch:word){
+        for(auto &ch:word){
             if(curr->children.count(ch)==0){
                 curr->children[ch] = new TrieNode();
             }
