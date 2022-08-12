@@ -1,3 +1,16 @@
+/*
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        if(n==0){
+            return 0;
+        }
+        return (n&1) + hammingWeight(n>>1);
+    }
+};
+*/
+
+// USING DP
 class Solution {
 public:
     unordered_map<uint32_t,int> dp;
