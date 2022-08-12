@@ -1,19 +1,20 @@
 class Solution {
 public:
     int dp[10001];
-        
-    int solve(int sum){
-        if(sum==0){
+    
+    int solve(int n){
+        if(n==0){
             return 0;
         }
-        if(dp[sum]!=-1){
-            return dp[sum];
+        if(dp[n]!=-1){
+            return dp[n];
         }
-        int count = INT_MAX;
-        for(int i=1;i*i<=sum;i++){
-            count = min(count, 1 + solve(sum-i*i));
+        int minVal = INT_MAX;
+        // subtract square numbers in range 1 to n and find no of squares for n-i*i
+        for(int i=1;i*i<=n;i++){
+            minVal = min(minVal, 1 + solve(n-i*i));
         }
-        return dp[sum] = count;
+        return dp[n] = minVal;
     }
     
     int numSquares(int n) {
