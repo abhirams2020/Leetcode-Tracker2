@@ -10,7 +10,7 @@
  */
 class Solution {
 public:
-    ListNode* reverseLL(ListNode* head) {
+    ListNode* reverseLL(ListNode* &head) {
         ListNode* cur=head, *prv=NULL, *nxt;
         while(cur!=NULL){
             nxt = cur->next;
@@ -20,7 +20,7 @@ public:
         }
         return prv;
     }
-    void reorderList(ListNode* head) {
+    void reorderList(ListNode* &head) {
         if(head==NULL){
             return;
         }
