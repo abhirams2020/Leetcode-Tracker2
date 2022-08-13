@@ -16,13 +16,13 @@ public:
         dummy->next = head;
         
         ListNode* fast = dummy;
-        for(int i=0;i<n+1;i++){
+        for(int i=0;i<n;i++){
             fast = fast->next;
         }
         
         ListNode* slow = dummy;
         
-        while(fast){
+        while(fast && fast->next){
             fast = fast->next;
             slow = slow->next;
         }
