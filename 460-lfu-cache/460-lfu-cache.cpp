@@ -20,10 +20,9 @@ public:
         auto keyAddr = keyPtr[key];
         // erase curr key from the LFU cache and add to updated frequency list
         freqList[currFreq].erase(keyAddr);
+        currCapacity--;
         // add key,value pair to new freq = currFreq + 1
-        freqList[currFreq+1].push_front({key,value});
-        keyPtr[key] = freqList[currFreq+1].begin();
-        keyFreq[key] = currFreq+1;
+        addKey(key,value,currFreq+1);
         // remove the prev freq from map if its list is empty
         if(freqList[currFreq].empty()){
             freqList.erase(currFreq);
@@ -39,8 +38,8 @@ public:
         int leastFreq = freqList.begin()->first;
         // least recent element will be at end of freqList[leastFreq]
         pii leastRecent = freqList[leastFreq].back();
-        int leastRecentKey = leastRecent.first;
-        freqList[leastFreq].pop_back(); // remove like lru cache
+        int leastRecentKey = leastRecent.first; // key of least recent element in list of least freq
+        freqList[leastFreq].pop_back(); // remove the least recent element from least freq list
         keyPtr.erase(leastRecentKey); // remove deleted key from keyPtr and keyFreq
         keyFreq.erase(leastRecentKey);
         if(freqList[leastFreq].size()==0){
@@ -50,17 +49,20 @@ public:
     }
     
     // function to add new key, value pair in the LFU cache
-    void addNewKey(int key,int value){
+    void addKey(int key,int value,int freq){
+        // if no elements can be added to lfu cache, return
+        if(capacity==0){
+            return;
+        }
+        // if element can be added, remove the old elements till we have space for new
         if(currCapacity >= capacity){
             removeLeastFrequent();
         }
-        if(currCapacity < capacity){
-            freqList[1].push_front({key,value});
-            auto currAddr = freqList[1].begin();
-            keyPtr[key] = currAddr;
-            keyFreq[key] = 1;
-            currCapacity++;
-        }
+        // add {key,value} to given freq list and update address and frequency of key
+        freqList[freq].push_front({key,value});
+        keyPtr[key] = freqList[freq].begin();
+        keyFreq[key] = freq;
+        currCapacity++;
     }
     
     // function to print the current LFU
@@ -89,7 +91,7 @@ public:
             updateKey(key,value);
         }
         else {
-            addNewKey(key,value);
+            addKey(key,value,0);
         }
     }
 };
