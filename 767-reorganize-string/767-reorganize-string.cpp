@@ -1,5 +1,4 @@
 /*
-*/
 // TAKE TOP 2 ELEMENTS AND ADD ALTERNATIVELY
 class Solution {
 public:
@@ -45,8 +44,8 @@ public:
         return ans;
     }
 };
+*/
 
-/*
 // SIMILAR TO TASK SCHEDULER WITH COOLDOWN = 1
 class Solution {
 public:
@@ -94,4 +93,3 @@ public:
         return ans;
     }
 };
-*/
