@@ -1,18 +1,15 @@
 class Solution {
 public:
-    bool isLetterLog(string &str){
-        // find first character after a space
-        int i=0;
-        while(i<str.length() && str[i]!=' '){
-            i++;
+    bool isLetterLog(string &log){
+        stringstream ss(log);
+        string word;
+        ss>>word;
+        while(ss>>word){
+            if('0'<=word[0] && word[0]<='9'){
+                return false;
+            }
         }
-        // check if content has letter or digits
-        if('a'<=str[i+1] && str[i+1]<='z'){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return true;    
     }
     
     static bool cmp(string &a, string &b){
@@ -34,25 +31,25 @@ public:
     }
     
     vector<string> reorderLogFiles(vector<string>& logs) {
-        vector<string> res;
-        vector<string> letters;
-        vector<string> digits;
-        for(auto str:logs){
-            if(isLetterLog(str)){
-                letters.push_back(str);
+        vector<string> letterLogs;
+        vector<string> digitLogs;
+        vector<string> ans;
+        for(auto &log:logs){
+            if(isLetterLog(log)){
+                letterLogs.push_back(log);
             }
             else {
-                digits.push_back(str);
+                digitLogs.push_back(log);
             }
         }
-        sort(letters.begin(),letters.end(),cmp);
         // first sorted letters added. then digits added in relative order
-        for(auto str:letters){
-            res.push_back(str);
+        sort(letterLogs.begin(), letterLogs.end(), cmp);
+        for(auto &log:letterLogs){
+            ans.push_back(log);
         }
-        for(auto str:digits){
-            res.push_back(str);
+        for(auto &log:digitLogs){
+            ans.push_back(log);
         }
-        return res;
+        return ans;
     }
 };
