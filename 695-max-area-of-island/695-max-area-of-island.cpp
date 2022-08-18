@@ -14,7 +14,7 @@ public:
     
     int dfs(vector<vector<int>> &grid, int row, int col) {
         int area = 1;
-        for(vector<int> dir:directions){
+        for(vector<int> &dir:directions){
             int new_i = row+dir[0], new_j = col+dir[1];
             if(isValid(grid, new_i, new_j)){
                 grid[new_i][new_j] = 2;
