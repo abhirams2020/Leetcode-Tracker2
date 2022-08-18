@@ -1,27 +1,27 @@
 class Solution {
 public:
-    vector<vector<int>> directions = {{1,0}, {0,1}, {-1,0}, {0,-1}};
     
-    void dfs(vector<vector<char>> &grid, int i, int j){
-        if(i<0 || j<0 || i==grid.size() || j==grid[0].size()){
+    // 0-water, 1-land, 2-visited land
+    void fill(vector<vector<char>>& grid, int i, int j){
+        if(i<0 || j<0 || i>=grid.size() || j>=grid[0].size()){
             return;
         }
-        if(grid[i][j] == '0'){
+        if(grid[i][j] == '0' || grid[i][j] == '2'){
             return;
         }
-        grid[i][j] = '0';
-        for(auto dir:directions){
-            dfs(grid, i+dir[0], j+dir[1]);
-        }
+        grid[i][j] = '2';
+        fill(grid,i+1,j);
+        fill(grid,i,j+1);
+        fill(grid,i-1,j);
+        fill(grid,i,j-1);
     }
     
     int numIslands(vector<vector<char>>& grid) {
-        int m = grid.size(), n = grid[0].size();
         int count = 0;
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(grid[i][j] == '1'){
-                    dfs(grid, i, j);
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[0].size();j++){
+                if(grid[i][j]=='1'){
+                    fill(grid,i,j);
                     count++;
                 }
             }
