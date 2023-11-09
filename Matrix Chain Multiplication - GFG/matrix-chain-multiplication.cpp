@@ -1,38 +1,13 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 // Initial Template for C++
 
 #include <bits/stdc++.h>
 using namespace std;
 
- // } Driver Code Ends
+// } Driver Code Ends
 // User function Template for C++
 
-// class Solution{
-// public:
-//     int dp[101][101];
-    
-//     int solve(int arr[], int i, int j){
-//         // if size of i to j less than 3, MCM not possible
-//         if(j-i+1 < 3){
-//             return 0;
-//         }
-//         // if(dp[i][j]!=-1){
-//         //     return dp[i][j];
-//         // }
-//         int ans = INT_MAX;
-//         for(int k=i+1; k<=j-1; k++){
-//             ans = min(ans, arr[i]*arr[k]*arr[j] + solve(arr,i,k-1) + solve(arr,k+1,j));
-//         }
-//         return dp[i][j] = ans;
-//     }
-    
-//     int matrixMultiplication(int N, int arr[])
-//     {
-//         memset(dp,-1,sizeof(dp));
-//         return solve(arr,0,N-1);
-//     }
-// };
-
+// https://leetcode.com/discuss/general-discussion/1278305/all-about-matrix-chain-multiplication-easy
 class Solution{
 public:
     int dp[101][101];
@@ -62,7 +37,7 @@ public:
     }
 };
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 
 int main(){
     int t;
@@ -78,4 +53,5 @@ int main(){
         cout<<ob.matrixMultiplication(N, arr)<<endl;
     }
     return 0;
-}  // } Driver Code Ends
+}
+// } Driver Code Ends
