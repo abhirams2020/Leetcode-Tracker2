@@ -30,6 +30,8 @@ class Solution{
             }
         }
         
+        // check for negative cycle by running the loop 1 more time
+        // if dist is updated again, it means negative cycle exists
         for(auto it:adj){
             int u = it[0], v = it[1], wt = it[2];
             if(dist[u]!=INF && dist[v] > dist[u] + wt){
