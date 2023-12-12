@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 //Initial Template for C++
 
 #include<bits/stdc++.h> 
@@ -88,7 +88,7 @@ Node* buildTree(string str)
 }
 
 
- // } Driver Code Ends
+// } Driver Code Ends
 //User function Template for C++
 
 //Node Structure
@@ -103,7 +103,8 @@ struct Node
 
 class Solution{
   public:
-    vector<unordered_map<Node*, int>> dp;
+    // create 2 maps. one for when select=true, one when select=false
+    unordered_map<Node*, int> dp[2];
     
     // At a node there is 2 options,    select curr and skip the child nodes
     //                                  dont select curr and move to child nodes
@@ -131,12 +132,12 @@ class Solution{
     //Function to return the maximum sum of non-adjacent nodes.
     int getMaxSum(Node *root) 
     {
-        dp.resize(2);
         return maxSum(root,true);
     }
 };
 
-// { Driver Code Starts.
+
+//{ Driver Code Starts.
 
 // Driver code 
 int main()
@@ -152,4 +153,5 @@ int main()
         cout<<ob.getMaxSum(root)<<endl;
   }
   return 0;
-}  // } Driver Code Ends
+}
+// } Driver Code Ends
