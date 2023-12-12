@@ -1,9 +1,8 @@
 # Maximum sum of Non-adjacent nodes
-## Medium 
-<div class="problem-statement">
-                <p></p><p><span style="font-size:18px">Given a binary tree with a value associated with each node, we need to choose a subset of these nodes such that sum of chosen nodes is maximum under a constraint that no two chosen node in subset should be directly connected that is, if we have taken a node in our sum then we can’t take its any children or parents in consideration and vice versa.</span></p>
+## Medium
+<div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">Given a binary tree with a value associated with each node, we need to choose a subset of these nodes such that sum of chosen nodes is maximum under a constraint that no two chosen node in subset should be directly connected that is, if we have taken a node in our sum then we can’t take its any children or parents in consideration and vice versa.</span></p>
 
-<p><span style="font-size:18px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img alt="" src="http://cdncontribute.geeksforgeeks.org/wp-content/uploads/nodeSubsetWithMaxSum.png" style="height:263px; width:600px" class="img-responsive"></span></p>
+<p><span style="font-size:18px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img alt="" src="http://cdncontribute.geeksforgeeks.org/wp-content/uploads/nodeSubsetWithMaxSum.png" style="height:263px; width:600px"></span></p>
 
 <p><span style="font-size:18px"><strong>Example 1:</strong></span></p>
 
@@ -38,5 +37,4 @@ You don't need to read input or print anything. You just&nbsp;have to complete&n
 1 ≤ Number of nodes in the tree ≤ 10000</span></div>
 
 <div><span style="font-size:18px">1 ≤ Value of each node ≤ 100000</span></div>
- <p></p>
-            </div>
+</div>
